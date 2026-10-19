@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentguard"
+version = "0.0.0"
+description = "AgentGuard SDK skeleton; security enforcement is not implemented in P0"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["pydantic==2.12.4"]
+
+[project.optional-dependencies]
+dev = ["pytest==8.4.2", "ruff==0.12.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["agentguard*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-config --strict-markers --basetemp=.cache/pytest"
+markers = ["p0: P0 skeleton, offline isolation and architecture checks"]
+filterwarnings = ["error"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src"]
+extend-exclude = [".cache", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+

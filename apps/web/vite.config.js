@@ -1,0 +1,13 @@
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [vue()],
+  test: {
+    environment: 'jsdom',
+    include: ['src/**/*.test.js'],
+    setupFiles: ['./src/test-setup.js'],
+    reporters: ['default', 'junit'],
+    outputFile: { junit: '../../reports/generated/P0-web-junit.xml' },
+  },
+})
