@@ -19,8 +19,12 @@ include = ["agentguard*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra --strict-config --strict-markers --basetemp=.cache/pytest"
-markers = ["p0: P0 skeleton, offline isolation and architecture checks"]
+addopts = "-ra --strict-config --strict-markers --basetemp=.cache/pytest-current"
+cache_dir = ".cache/pytest-cache-v1"
+markers = [
+    "p0: P0 skeleton, offline isolation and architecture checks",
+    "p1: P1 unprotected LangGraph demo, sandbox tools and HTTP/SSE",
+]
 filterwarnings = ["error"]
 
 [tool.ruff]

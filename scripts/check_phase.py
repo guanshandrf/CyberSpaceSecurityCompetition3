@@ -32,6 +32,8 @@ def offline_environment() -> dict[str, str]:
         AGENTGUARD_ENABLE_REAL_API="false",
         AGENTGUARD_ENABLE_BENCHMARKS="false",
         AGENTGUARD_ENABLE_BASELINE="false",
+        LANGSMITH_TRACING="false",
+        LANGCHAIN_TRACING_V2="false",
         npm_config_offline="true",
         npm_config_audit="false",
         npm_config_fund="false",
@@ -40,7 +42,7 @@ def offline_environment() -> dict[str, str]:
     return env
 
 
-def run_step(name: str, command: list[str], cwd: Path, env: dict[str, str]) -> dict:
+def run_step(name: str, command: list[str], cwd: Path, env: dict[str, str], phase="P0") -> dict:
     started = time.monotonic()
     try:
         process = subprocess.run(
@@ -58,7 +60,7 @@ def run_step(name: str, command: list[str], cwd: Path, env: dict[str, str]) -> d
     except (OSError, subprocess.TimeoutExpired) as exc:
         code, output = 1, f"{type(exc).__name__}: check could not complete"
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    log = OUTPUT / f"P0-{name}.log"
+    log = OUTPUT / f"{phase}-{name}.log"
     log.write_text(output, encoding="utf-8")
     print(f"{name}: {'PASS' if code == 0 else 'FAIL'}", flush=True)
     return {
@@ -99,17 +101,18 @@ def conclusion(steps: list[dict], counts: dict[str, dict]) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase", choices=["P0"], help="Only P0 is implemented and authorized")
+    parser.add_argument("phase", choices=["P0", "P1"], help="Implemented phases: P0, P1")
     args = parser.parse_args(argv)
     OUTPUT.mkdir(parents=True, exist_ok=True)
     junit = {
-        "python": OUTPUT / "P0-python-junit.xml",
-        "web": OUTPUT / "P0-web-junit.xml",
+        "python": OUTPUT / f"{args.phase}-python-junit.xml",
+        "web": OUTPUT / f"{args.phase}-web-junit.xml",
     }
     # Never treat an earlier successful test report as evidence for this run.
-    for report in [*junit.values(), OUTPUT / "P0-results.json"]:
+    for report in [*junit.values(), OUTPUT / f"{args.phase}-results.json"]:
         report.unlink(missing_ok=True)
     env = offline_environment()
+    env["AGENTGUARD_CHECK_PHASE"] = args.phase
     npm = shutil.which("npm.cmd" if os.name == "nt" else "npm") or "npm"
     steps_to_run = [
         ("dependencies", [sys.executable, "-m", "pip", "check"], ROOT),
@@ -122,8 +125,8 @@ def main(argv: list[str] | None = None) -> int:
                 "-m",
                 "pytest",
                 "-m",
-                "p0",
-                "--basetemp=.cache/pytest",
+                "p0" if args.phase == "P0" else "p0 or p1",
+                f"--basetemp=.cache/pytest-{args.phase}",
                 f"--junitxml={junit['python']}",
             ],
             ROOT,
@@ -131,7 +134,7 @@ def main(argv: list[str] | None = None) -> int:
         ("web-tests", [npm, "run", "test"], ROOT / "apps" / "web"),
         ("web-build", [npm, "run", "build"], ROOT / "apps" / "web"),
     ]
-    steps = [run_step(name, command, cwd, env) for name, command, cwd in steps_to_run]
+    steps = [run_step(name, command, cwd, env, args.phase) for name, command, cwd in steps_to_run]
     counts, report_errors = {}, []
     for name, path in junit.items():
         try:
@@ -152,7 +155,7 @@ def main(argv: list[str] | None = None) -> int:
         "external_runs": {"deepseek": "NOT_RUN", "benchmarks": "NOT_RUN"},
         "conclusion": status,
     }
-    destination = OUTPUT / "P0-results.json"
+    destination = OUTPUT / f"{args.phase}-results.json"
     destination.write_text(
         json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )

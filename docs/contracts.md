@@ -1,6 +1,9 @@
 # 统一事件与决策契约草案（P0）
 
 状态：字段设计草案，尚无 Python 模型、Protocol/ABC 或运行时验证；实现与序列化测试属 P2。
+P1 的 HTTP/SSE 使用演示包私有的 session/tool_call/tool_result/message/error/done 传输格式，
+含 session_id、每轮 trace_id 和工具 tool_call_id；它们不是 SDK SecurityEvent，
+不带 Guard 决策，不构成 P2 契约实现。接口详情见 `apps/api/README.md`。
 暂定 schema_version 为 `1.0`，正式支持版本、长度上限与兼容策略由 P2 固化。
 所有事件必须可 JSON 序列化，ID 不包含秘密；timestamp 为带时区 UTC 时间。
 

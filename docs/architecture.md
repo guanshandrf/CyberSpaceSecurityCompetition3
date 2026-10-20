@@ -1,6 +1,17 @@
 # AgentGuard 架构（P0 设计基线）
 
-状态：本文描述目标架构；P0 只交付包目录、空前端和验证基础，不提供运行时 Guard。
+状态：本文描述目标架构；当前 P1 交付独立的无 Guard 基线，SDK 仍只有 P0 包骨架。
+没有运行时 Guard。
+
+## P1 当前可运行路径
+
+`FastAPI → ChatService（内存会话）→ LangGraph StateGraph → LangChain BaseChatModel`
+（默认 Fake，可选自定义 DeepSeek HTTP Provider）`→ 工具自身沙箱 → 模型回复`。
+API 和演示依赖只在 `apps/api` 独立包/requirements-demo.lock 中声明，演示不 import SDK。
+这条路径没有 Adapter/Gate/Guarded Executor；后续 P6 才接入 SDK。无 Guard 基线默认关闭，
+仅显式启用时建立会话服务；真实 API 另需开关和密钥，具备基础调用/token 上限。
+SSE 逐节点发送会话、工具调用、工具结果和最终消息；不声称逐 token 输出或审计。
+SQLite 会话持久化尚未实现，前端仍是 P0 空应用。
 
 ## 分层与技术选型
 

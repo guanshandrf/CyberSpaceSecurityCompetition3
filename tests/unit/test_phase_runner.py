@@ -83,7 +83,7 @@ def test_runner_removes_credentials_and_user_pytest_overrides(monkeypatch):
 
 def test_unauthorized_phase_is_rejected_without_running_checks():
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "check_phase.py"), "P1"],
+        [sys.executable, str(ROOT / "scripts" / "check_phase.py"), "P2"],
         env=dict(os.environ),
         capture_output=True,
         text=True,
