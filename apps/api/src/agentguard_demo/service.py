@@ -24,6 +24,7 @@ class CallLimit(RuntimeError):
 @dataclass
 class Session:
     session_id: str
+    provider_name: str = "fake"
     messages: list = field(default_factory=list)
     provider_calls: int = 0
     turns: int = 0
@@ -33,9 +34,12 @@ class Session:
 
 
 class ChatService:
-    def __init__(self, settings: DemoSettings, provider):
+    def __init__(self, settings: DemoSettings, provider, *, providers=None):
         self.settings = settings
         self.provider = provider
+        self.providers = dict(providers or {settings.provider: provider})
+        if settings.provider not in self.providers or set(self.providers) - {"fake", "deepseek"}:
+            raise ValueError("Invalid backend provider catalog")
         self.sessions: dict[str, Session] = {}
         self.lock = Lock()
         self.total_provider_calls = 0
@@ -45,8 +49,13 @@ class ChatService:
 
             self.audit = make_audit(settings)
 
-    def create_session(self):
-        session = Session(uuid4().hex)
+    def create_session(self, provider_name=None):
+        selected = self.settings.provider if provider_name is None else provider_name
+        if selected not in self.providers:
+            raise ValueError("Provider unavailable")
+        if provider_name is not None and not self.settings.enable_model_selection:
+            raise ValueError("Provider selection disabled")
+        session = Session(uuid4().hex, provider_name=selected)
         if self.audit:
             self.audit.history.create_session(session.session_id)
         with self.lock:
@@ -71,7 +80,7 @@ class ChatService:
             return self.sessions.get(session_id)
 
     def _graph(self, session, tools, *, protector=None, trace_id=None):
-        bound = self.provider.bind_tools(tools)
+        bound = self.providers[session.provider_name].bind_tools(tools)
         by_name = {item.name: item for item in tools} if protector is None else {}
         tool_count = 0
 
@@ -161,7 +170,7 @@ class ChatService:
                 return {"event": kind, "data": {**common, **data}}
 
             mode = "protected" if self.settings.enable_protection else "unprotected"
-            yield event("session", mode=mode, provider=self.settings.provider)
+            yield event("session", mode=mode, provider=session.provider_name)
             turn_start = len(session.messages)
             completed = False
             session.messages.append(HumanMessage(content=content))

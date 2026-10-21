@@ -2,6 +2,7 @@
 
 import json
 from contextlib import asynccontextmanager
+from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
@@ -19,6 +20,11 @@ class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=4096)
 
 
+class SessionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    provider: Literal["fake", "deepseek"]
+
+
 def create_app(settings: DemoSettings | None = None, *, provider=None):
     settings = settings or DemoSettings.from_env()
     mode = "protected" if settings.enable_protection else "unprotected"
@@ -27,8 +33,22 @@ def create_app(settings: DemoSettings | None = None, *, provider=None):
     async def lifespan(app):
         app.state.chat = None
         if settings.enable_baseline or settings.enable_protection:
-            selected = provider if provider is not None else make_provider(settings)
-            app.state.chat = ChatService(settings, selected)
+            providers = None
+            if settings.enable_model_selection:
+                providers = {
+                    "fake": make_provider(
+                        settings.model_copy(update={"provider": "fake", "enable_real_api": False})
+                    )
+                }
+                if settings.enable_real_api and settings.api_key.get_secret_value():
+                    providers["deepseek"] = make_provider(
+                        settings.model_copy(update={"provider": "deepseek"})
+                    )
+                selected = provider if provider is not None else providers[settings.provider]
+                providers[settings.provider] = selected
+            else:
+                selected = provider if provider is not None else make_provider(settings)
+            app.state.chat = ChatService(settings, selected, providers=providers)
         yield
 
     app = FastAPI(title="AgentGuard local demonstration", lifespan=lifespan)
@@ -77,9 +97,32 @@ def create_app(settings: DemoSettings | None = None, *, provider=None):
             return {"baseline_enabled": False, "guard": "enabled", "mode": "protected"}
         return {"baseline_enabled": settings.enable_baseline, "guard": "not_implemented"}
 
+    @app.get("/models")
+    def models():
+        chat = service()
+        available = set(chat.providers)
+        return {
+            "default_provider": settings.provider,
+            "selectable": settings.enable_model_selection,
+            "models": [
+                {"id": name, "available": name in available} for name in ("fake", "deepseek")
+            ],
+            "limits": {
+                "max_output_tokens": settings.max_tokens,
+                "max_total_calls": settings.max_total_provider_calls,
+                "used_calls": chat.total_provider_calls,
+            },
+        }
+
     @app.post("/sessions", status_code=201)
-    def create_session():
-        return {"session_id": service().create_session().session_id, "mode": mode}
+    def create_session(body: SessionRequest | None = None):
+        chat = service()
+        if body is not None and (
+            not settings.enable_model_selection or body.provider not in chat.providers
+        ):
+            raise HTTPException(403, "Model is not enabled by the backend")
+        session = chat.create_session(body.provider if body is not None else None)
+        return {"session_id": session.session_id, "mode": mode, "provider": session.provider_name}
 
     def history_service():
         chat = service()
@@ -116,6 +159,11 @@ def create_app(settings: DemoSettings | None = None, *, provider=None):
             "next_after": records[-1]["sequence"] if records else after,
             "active": chat.get_session(session_id) is not None,
             "mode": "protected",
+            "provider": (
+                chat.get_session(session_id).provider_name
+                if chat.get_session(session_id) is not None
+                else None
+            ),
         }
 
     @app.get("/sessions/{session_id}")

@@ -76,7 +76,7 @@ SQLite 持久化的是安全展示历史，不是可执行的 LangGraph 状态�
 仅绑定回环，HTTP Host 限定本地/testserver，非同源 POST 拒绝，不开放 CORS。无身份认证、
 多租户隔离、会话删除/保留策略或远程部署能力；拥有本机访问能力的用户可以读取所有演示
 会话。SSE 不自动重试工具调用；断连可能继续执行已准入操作。只保护 Adapter 接管工具。
-P8 Benchmark 与 P9 异构接入未实施；本阶段没有真实 DeepSeek/外部模型安全实验。
+P8/P9后续工程已交付，完整Benchmark仍有缺口，见最终报告；本轮模型选择修复没有发起真实API。
 
 ## 验收
 
@@ -87,3 +87,29 @@ P8 Benchmark 与 P9 异构接入未实施；本阶段没有真实 DeepSeek/外�
 组件单测的合成事件仅用于展示分支测试，不冒充实际 API/安全执行结果。
 旧 P0 组件移为 P0Shell.vue，原挂载/网络拒绝断言保留。P0–P6 正式命令仍只运行其原两项
 Web 测试；P7 正式命令包含所有新 Web 测试。非法后续阶段拒绝测试顺延到未授权 P8。
+
+## 页面模型选择（P7/P9交付后修复）
+
+顶部模型按钮显示当前会话使用离线Fake或真实DeepSeek。Fake仅回显/工具演示，不生成真实问答；
+已有对话仍固定原模型，选择模型会创建新会话。DeepSeek选项需确认费用，创建会话本身不请求API。
+只向页面返回模型允许列表、可用状态和预算上限，不返回Key；不提供浏览器Key输入框。
+
+后端默认关闭模型选择。要开放选择，从根目录启动时显式设置：
+
+```powershell
+$env:AGENTGUARD_ENABLE_PROTECTION='true'
+$env:AGENTGUARD_ENABLE_BASELINE='false'
+$env:AGENTGUARD_ENABLE_MODEL_SELECTION='true'
+$env:AGENTGUARD_ENABLE_REAL_API='true'
+$env:AGENTGUARD_LLM_PROVIDER='fake'
+.\.venv\Scripts\python.exe -m uvicorn agentguard_demo.api:app --env-file .env --host 127.0.0.1 --port 8000
+```
+
+.env只由后端明确读取，DEEPSEEK_API_KEY必须安全配置。没有Key或真实开关时DeepSeek显示为
+后端未启用，提交该选项会403；不能由请求提交Key、端点、权限或关闭Guard。
+GET /models为演示API配置查询；POST /sessions可选JSON仅为后端允许的provider名称。
+这是用户明确要求的演示层选择能力，不修改P2公共SDK协议或SDK依赖。
+
+Fake/DeepSeek及新会话共用同一ChatService预算计数，失败/工具续答同样计数，不能切换模型
+重置预算；默认进程上限16、每会话8、每次输出256token，仍是本地演示，重启后进程预算重置。
+模型选择/费用确认是本机用户操作，不能提供生产身份认证或账户级预算保证。

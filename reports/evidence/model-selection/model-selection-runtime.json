@@ -1,0 +1,24 @@
+{
+  "models": {
+    "default_provider": "fake",
+    "selectable": true,
+    "models": [
+      {
+        "id": "fake",
+        "available": true
+      },
+      {
+        "id": "deepseek",
+        "available": true
+      }
+    ],
+    "limits": {
+      "max_output_tokens": 256,
+      "max_total_calls": 16,
+      "used_calls": 0
+    }
+  },
+  "real_api_requests_during_verification": 0,
+  "fake_chat_reply_present": true,
+  "guard": "enabled"
+}

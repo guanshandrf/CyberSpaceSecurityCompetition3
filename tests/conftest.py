@@ -35,6 +35,7 @@ def offline_sandbox(monkeypatch, tmp_path):
             monkeypatch.delenv(name)
     monkeypatch.setenv("AGENTGUARD_LLM_PROVIDER", "fake")
     monkeypatch.setenv("AGENTGUARD_ENABLE_REAL_API", "false")
+    monkeypatch.setenv("AGENTGUARD_ENABLE_MODEL_SELECTION", "false")
     monkeypatch.setenv("AGENTGUARD_ENABLE_BENCHMARKS", "false")
     monkeypatch.setenv("AGENTGUARD_ENABLE_BASELINE", "false")
     monkeypatch.setenv("AGENTGUARD_ENABLE_PROTECTION", "false")

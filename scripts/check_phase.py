@@ -32,6 +32,7 @@ def offline_environment() -> dict[str, str]:
         PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
         AGENTGUARD_LLM_PROVIDER="fake",
         AGENTGUARD_ENABLE_REAL_API="false",
+        AGENTGUARD_ENABLE_MODEL_SELECTION="false",
         AGENTGUARD_ENABLE_BENCHMARKS="false",
         AGENTGUARD_ENABLE_BASELINE="false",
         AGENTGUARD_ENABLE_PROTECTION="false",

@@ -18,8 +18,11 @@ export function createClient(transport = (...args) => fetch(...args)) {
   }
   return {
     health: async () => (await request('/health')).json(),
+    models: async () => (await request('/models')).json(),
     sessions: async () => (await request('/sessions')).json(),
-    create: async () => (await request('/sessions', { method: 'POST' })).json(),
+    create: async provider => (await request('/sessions', {
+      method: 'POST', ...(provider ? { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ provider }) } : {}),
+    })).json(),
     history: readHistory,
     async stream(id, message, onEvent, signal) {
       const response = await request(`/sessions/${encodeURIComponent(id)}/stream`, {
