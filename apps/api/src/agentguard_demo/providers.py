@@ -127,7 +127,7 @@ class DeepSeekChatModel(BaseChatModel):
 
 
 def make_provider(settings: DemoSettings, *, http_client=None) -> BaseChatModel:
-    if not settings.enable_baseline:
+    if not (settings.enable_baseline or settings.enable_protection):
         raise ValueError("Unprotected baseline is disabled")
     if settings.provider == "fake":
         if settings.enable_real_api:

@@ -37,6 +37,7 @@ def offline_sandbox(monkeypatch, tmp_path):
     monkeypatch.setenv("AGENTGUARD_ENABLE_REAL_API", "false")
     monkeypatch.setenv("AGENTGUARD_ENABLE_BENCHMARKS", "false")
     monkeypatch.setenv("AGENTGUARD_ENABLE_BASELINE", "false")
+    monkeypatch.setenv("AGENTGUARD_ENABLE_PROTECTION", "false")
     monkeypatch.setenv("LANGSMITH_TRACING", "false")
     monkeypatch.setenv("LANGCHAIN_TRACING_V2", "false")
     monkeypatch.setattr(socket, "create_connection", deny_network)

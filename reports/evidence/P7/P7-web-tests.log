@@ -1,0 +1,19 @@
+
+> agentguard-web@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.12 D:/Projects/Work/competition3/apps/web
+
+ ✓ src/client.test.js (7 tests) 12ms
+ ✓ src/App.test.js (2 tests) 111ms
+ ✓ src/Chat.test.js (9 tests) 155ms
+ ✓ src/P7.e2e.test.js (1 test) 1917ms
+   ✓ real Vue UI -> ASGI API -> guarded LangGraph -> SQLite -> SSE -> UI, including refresh  1916ms
+
+ Test Files  4 passed (4)
+      Tests  19 passed (19)
+   Start at  23:38:16
+   Duration  3.55s (transform 178ms, setup 61ms, import 2.92s, tests 2.20s, environment 1.87s)
+
+JUNIT report written to D:/Projects/Work/competition3/reports/generated/P7-web-junit.xml

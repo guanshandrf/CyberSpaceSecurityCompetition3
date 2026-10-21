@@ -14,7 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 def test_installed_package_metadata_matches_version():
     import agentguard
 
-    assert agentguard.__version__ == version("agentguard") == "0.0.0"
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    assert agentguard.__version__ == version("agentguard") == project["project"]["version"]
     assert agentguard.__all__ == ["__version__"]
     assert "security enforcement" in metadata("agentguard")["Summary"]
 
@@ -23,9 +24,38 @@ def test_installed_package_metadata_matches_version():
     "module",
     ["contracts", "core", "gates", "detectors", "policies", "executor", "adapters", "audit"],
 )
-def test_reserved_modules_import_without_runtime_implementations(module):
+def test_modules_expose_only_authorized_phase_implementations(module):
     loaded = importlib.import_module(f"agentguard.{module}")
-    assert not [name for name in vars(loaded) if not name.startswith("_")]
+    public = {name for name in vars(loaded) if not name.startswith("_")}
+    if module == "contracts":
+        assert {
+            "SecurityEvent",
+            "SecurityContext",
+            "SecurityDecision",
+            "Detector",
+            "Policy",
+            "Gate",
+        } <= public
+        assert not {"GuardedExecutor", "PolicyEngine"}.intersection(public)
+    elif module in {"gates", "policies", "executor", "audit", "detectors"}:
+        expected = {
+            "gates": {"Gate0", "Gate1", "Gate2"},
+            "policies": {"ToolBinding", "PathRule", "PolicyEngine"},
+            "executor": {"GuardedExecutor", "ExecutionResult", "ResultHandler", "HandledResult"},
+            "audit": {"SQLiteAudit"},
+            "detectors": {"Redactor", "RuleResultDetector", "RegistrationDetector"},
+        }
+        assert set(loaded.__all__) == expected[module]
+        assert expected[module] <= public
+        assert not {"LangGraphAdapter"}.intersection(public)
+    elif module == "adapters":
+        # P6 may have explicitly imported the optional submodule earlier in this
+        # process. Isolated import tests still forbid any eager framework imports.
+        assert public <= {"langgraph"}
+        if "langgraph" in public:
+            assert loaded.langgraph.__name__ == "agentguard.adapters.langgraph"
+    else:
+        assert not public
 
 
 def test_sdk_dependency_metadata_has_only_pydantic_at_runtime():

@@ -1,9 +1,16 @@
-# P1：无 Guard 的本地 LangGraph 基线
+# 本地 LangGraph 演示：独立基线与 P6 保护模式
 
-此包 `agentguard-demo` 独立于 SDK，不 import `agentguard`。真实 LangGraph 的
+此包 `agentguard-demo` 的基线独立于 SDK；保护模式惰性加载公共 SDK Adapter。真实 LangGraph 的
 `StateGraph(MessagesState)` 执行 `model → tools → model` 循环，FakeChatModel 和
-DeepSeekChatModel 都使用 LangChain BaseChatModel 接口。工具只具备自身目录约束，
-没有 Gate、Policy、SecurityContext、Guarded Executor 或任何安全审核声明。
+DeepSeekChatModel 都使用 LangChain BaseChatModel 接口。基线工具只具备自身目录约束；
+保护模式通过 Gate0 注册、Gate1/Executor 和 Gate2 闭环，详见 `docs/langgraph.md`。
+
+保护模式在同一依赖环境和 SDK 安装后，设置 AGENTGUARD_ENABLE_BASELINE=false、
+AGENTGUARD_ENABLE_PROTECTION=true。两模式互斥且默认均关闭，只允许可信后端设置。
+模型绑定和工具节点仅持有受保护包装，原 SandboxTools.as_tools 不进入保护图。
+保护模式 /health 返回 guard=enabled，/sessions 返回 mode=protected；工具事件参数
+脱敏为 [REDACTED]，工具结果只包含 Gate2 安全内容。audit.sqlite 保存三个 Gate 的脱敏审计，
+P7 另提供安全审计 API/UI，见根目录 `docs/web-chat.md`。下述 unprotected 格式专指基线。
 
 ## 安装和 Fake 启动
 
@@ -16,7 +23,7 @@ $env:AGENTGUARD_ENABLE_REAL_API='false'
 .\.venv\Scripts\python.exe -m uvicorn agentguard_demo.api:app --host 127.0.0.1 --port 8000
 ```
 
-不设置 baseline 开关时 `/health` 可访问，会话和聊天均返回 503。默认不会读取 `.env`、
+两种模式都未设置时 `/health` 可访问，会话和聊天均返回 503。默认不会读取 `.env`、
 创建沙箱或构造网络模型。`.env` 只有通过 `--env-file .env` 明确指定才加载。
 
 ## 接口与示例
@@ -60,7 +67,11 @@ JSON 数据中的换行会转义，不能注入新的 SSE frame。session/call �
 它不意味着 Guard BLOCK。Provider 错误/调用上限发送 error 和 done(ok=false)，不暴露
 服务端异常原文。请求体严格限制 1–4096 字符，额外 Provider/密钥/开关字段拒绝且不回显值。
 
-## 真实 DeepSeek：仅可选手动冒烟（本轮未运行）
+## 真实 DeepSeek：可选手动冒烟
+
+2026-10-20 已在明确授权后完成一次只读工具冒烟：2 次真实请求、904 API 报告 tokens；
+详见 `reports/P1-deepseek-real.md`。这不表示真实异常/安全性或 Benchmark 已验证，
+下述命令不会被普通阶段检查自动执行。
 
 只有用户明确启用真实实验时才执行。复制 `.env.example` 到忽略的 `.env`，设置：
 
@@ -92,8 +103,9 @@ AGENTGUARD_MAX_TOKENS=64
 
 ## 已知边界
 
-会话仅在单进程内存中，重启丢失；没有身份认证、SQLite 持久化、审计、SSE 重连恢复或
-生产部署能力。仅用于本地单用户、无私有数据的实验。工具副作用不能回滚，执行后模型
+执行会话仅在单进程内存中，重启丢失；基线没有持久历史或 Guard。P7 保护模式另有 SQLite
+安全展示历史，重启后旧会话只读；没有身份认证、自动 SSE 重发或生产部署能力。
+仅用于本地单用户、无私有数据的实验。工具副作用不能回滚，执行后模型
 失败仍可能留下新笔记；中断/重试与恶意本机目录替换的完整加固留待后续阶段。
 输入文件和结果未经过 Gate 2；提示注入可以影响此无 Guard 基线。
 

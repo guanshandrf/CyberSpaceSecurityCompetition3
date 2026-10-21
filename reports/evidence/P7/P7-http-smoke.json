@@ -1,0 +1,12 @@
+{
+  "conclusion": "PASS",
+  "transport": "real local TCP HTTP via Vite proxy to Uvicorn/FastAPI; Fake LLM; no browser rendering",
+  "root_html": 200,
+  "protected_health": true,
+  "create_session": 201,
+  "sse_all_gates": true,
+  "sse_matches_sqlite_history": true,
+  "denied_write_zero_file_side_effects": true,
+  "cross_origin_post": 403,
+  "external_api": "NOT_RUN"
+}

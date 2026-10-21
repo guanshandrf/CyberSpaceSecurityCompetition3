@@ -6,7 +6,16 @@ import pytest
 
 pytestmark = pytest.mark.p0
 ROOT = Path(__file__).resolve().parents[2]
-FORBIDDEN = {"apps", "benchmarks", "fastapi", "starlette", "langgraph", "langchain", "vue"}
+FORBIDDEN = {
+    "apps",
+    "benchmarks",
+    "fastapi",
+    "starlette",
+    "langgraph",
+    "langchain",
+    "langchain_core",
+    "vue",
+}
 
 
 def imports(source):

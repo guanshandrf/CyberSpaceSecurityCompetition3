@@ -1,0 +1,44 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.9, pytest-8.4.2, pluggy-1.5.0
+cachedir: .cache\pytest-cache-v1
+rootdir: D:\Projects\Work\competition3
+configfile: pyproject.toml
+testpaths: tests
+collected 696 items
+
+tests\integration\test_installation.py .                                 [  0%]
+tests\p1\test_api.py ..................                                  [  2%]
+tests\p1\test_dependencies.py ..                                         [  3%]
+tests\p1\test_providers.py ...........                                   [  4%]
+tests\p1\test_real_opt_in.py .                                           [  4%]
+tests\p1\test_sandbox.py .........................                       [  8%]
+tests\p2\test_context.py .................                               [ 10%]
+tests\p2\test_correlation.py ..................                          [ 13%]
+tests\p2\test_decisions.py ..................................            [ 18%]
+tests\p2\test_events.py ................................................ [ 25%]
+.......                                                                  [ 26%]
+tests\p2\test_interfaces_and_example.py ..                               [ 26%]
+tests\p3\test_approval_audit.py .......................                  [ 29%]
+tests\p3\test_enforcement.py ........................................... [ 35%]
+...........................                                              [ 39%]
+tests\p3\test_schema.py ........................                         [ 43%]
+tests\p3\test_security_fixes.py ........................................ [ 48%]
+.............................                                            [ 53%]
+tests\p4\test_results.py ............................................... [ 59%]
+                                                                         [ 59%]
+tests\p5\test_registry.py .............................                  [ 64%]
+tests\p6\test_adapter.py ...........................                     [ 67%]
+tests\p6\test_contrast_advice.py ...................................     [ 72%]
+tests\p6\test_demo.py .............                                      [ 74%]
+tests\p6\test_negation_scope.py ..................................       [ 79%]
+tests\p6\test_result_intents.py ........................................ [ 85%]
+.............                                                            [ 87%]
+tests\p6\test_security_invalid_calls.py ...............                  [ 89%]
+tests\p6\test_security_renewal.py ...........                            [ 91%]
+tests\p7\test_history_api.py .............................               [ 95%]
+tests\security\test_boundaries.py ............                           [ 96%]
+tests\unit\test_package.py ............                                  [ 98%]
+tests\unit\test_phase_runner.py .........                                [100%]
+
+- generated xml file: D:\Projects\Work\competition3\reports\generated\P7-python-junit.xml -
+============================ 696 passed in 24.20s =============================

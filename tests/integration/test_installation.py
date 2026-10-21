@@ -12,9 +12,11 @@ def test_installed_sdk_imports_in_isolated_interpreter_without_web_or_agent_fram
     code = """
 import importlib.abc
 import importlib
+from importlib.metadata import version
 import sys
 
-forbidden = {'fastapi', 'starlette', 'langgraph', 'langchain', 'apps', 'benchmarks', 'vue'}
+forbidden = {'fastapi', 'starlette', 'langgraph', 'langchain', 'langchain_core',
+             'apps', 'benchmarks', 'vue'}
 class DenyFrameworks(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname.split('.')[0] in forbidden:
@@ -25,7 +27,7 @@ import agentguard
 modules = ['contracts', 'core', 'gates', 'detectors', 'policies', 'executor', 'adapters', 'audit']
 for name in modules:
     importlib.import_module('agentguard.' + name)
-assert agentguard.__version__ == '0.0.0'
+assert agentguard.__version__ == version('agentguard')
 assert not forbidden.intersection(sys.modules)
 print('isolated installed SDK import: OK')
 """

@@ -1,0 +1,25 @@
+{
+  "timestamp_utc": "2026-10-21T15:42:59.064857+00:00",
+  "phase": "P7",
+  "conclusion": "PASS",
+  "backup_scope": "current worktree through P7; P8/P9 authorized but not implemented",
+  "files": {
+    "reports/evidence/P7/P7-build-fix.log": "c2b98f980e353edb2eef3312c52b2b4f55ec5dd1700e65943dd5c8831de68870",
+    "reports/evidence/P7/P7-dependencies.log": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+    "reports/evidence/P7/P7-diff-check.log": "ca8524a00761ebb2ebdfce0a49a8a287e20b546dd4757f75398c342414d2320f",
+    "reports/evidence/P7/P7-first-formal-results.json": "de97d9580b677c1d97434a6c4db5173429011e52320153ba45ff45fa26c41606",
+    "reports/evidence/P7/P7-first-formal-web-build.log": "71717cf28804899ae13fb61fdaf8e53b3d605176d5dbca6dd2ce16f2dd17ce88",
+    "reports/evidence/P7/P7-format.log": "9c8484f35c0be72f8b42e79915a8060671d9a6fd45f659309229a5a8aa670ea6",
+    "reports/evidence/P7/P7-http-smoke.json": "94fa92c61ad433510819ab3183ea694ebde14701ceb3363ebbd0ec4085e3d670",
+    "reports/evidence/P7/P7-lint.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "reports/evidence/P7/P7-python-junit.xml": "687f5b4bcbde27785099a1e04bdc4d11c6a4631868fa5683be987ccbfbdf20a1",
+    "reports/evidence/P7/P7-python-tests.log": "b1bbde23b71c62a2323a14b95dbd013678ba8d5d132c7456346babf62f280324",
+    "reports/evidence/P7/P7-results.json": "3ee8118dbca2f2192a56a775b103236ebb9e7c33f5cd17ea26c80ce2937e6829",
+    "reports/evidence/P7/P7-review-results.json": "45fe5b4174e4fabd8958a4432d5caf7caa9fb8b17d44f97125850388e53ad9ad",
+    "reports/evidence/P7/P7-sdk-junit.xml": "8703b497f419574df0a60951a9fa6c86b8c659764d349bcd81d8a47a16b701d9",
+    "reports/evidence/P7/P7-sdk.log": "3f17dcbd256e0ef40534ff09a6fbdb5577bece07139e5d2451223c0efcc87fca",
+    "reports/evidence/P7/P7-web-build.log": "1ee1738da4c52d117da53a6ed07a3001d87d740792237ed4559e8d076e50a1d9",
+    "reports/evidence/P7/P7-web-junit.xml": "5f58d7892dd27eec4c909fd61e09f3f0a223acde55c69920d91a10fb894742e2",
+    "reports/evidence/P7/P7-web-tests.log": "740ce7dbbe1c2ee0557ae85f2fa6913ea2656b042ee0e10797a16a3f978626f7"
+  }
+}

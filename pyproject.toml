@@ -4,14 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentguard"
-version = "0.0.0"
-description = "AgentGuard SDK skeleton; security enforcement is not implemented in P0"
+version = "0.6.0"
+description = "AgentGuard SDK with Gate 1 security enforcement and controlled tool execution"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = ["pydantic==2.12.4"]
 
 [project.optional-dependencies]
 dev = ["pytest==8.4.2", "ruff==0.12.0"]
+langgraph = ["langgraph==1.2.16", "langchain-core==1.6.12"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -24,6 +25,12 @@ cache_dir = ".cache/pytest-cache-v1"
 markers = [
     "p0: P0 skeleton, offline isolation and architecture checks",
     "p1: P1 unprotected LangGraph demo, sandbox tools and HTTP/SSE",
+    "p2: P2 framework-independent event, context and decision contracts",
+    "p3: P3 Gate 1 enforcement, approval, budget, replay and redacted audit",
+    "p4: P4 result inspection, redaction and safe result handling",
+    "p5: P5 registration admission, lifecycle and executor enforcement",
+    "p6: P6 optional LangGraph adapter and protected end-to-end integration",
+    "p7: P7 protected chat UI, persisted audit projection and SSE history",
 ]
 filterwarnings = ["error"]
 

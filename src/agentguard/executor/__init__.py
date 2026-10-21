@@ -1,1 +1,6 @@
-"""Reserved for P3 controlled execution; no tools can be executed here in P0."""
+"""P3 forced pre-tool authorization. Result content filtering belongs to P4."""
+
+from .guarded import ExecutionResult, GuardedExecutor
+from .results import HandledResult, ResultHandler
+
+__all__ = ["ExecutionResult", "GuardedExecutor", "HandledResult", "ResultHandler"]

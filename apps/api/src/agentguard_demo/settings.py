@@ -4,13 +4,16 @@ import os
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, SecretStr
+from pydantic import BaseModel, ConfigDict, Field, SecretStr, model_validator
 
 
 class DemoSettings(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     enable_baseline: bool = False
+    enable_protection: bool = False
+    guard_permissions: tuple[Literal["file.read", "note.write"], ...] = ("file.read", "note.write")
+    max_tool_calls: int = Field(default=8, ge=1, le=64)
     provider: Literal["fake", "deepseek"] = "fake"
     enable_real_api: bool = False
     api_key: SecretStr = Field(default=SecretStr(""), repr=False)
@@ -19,6 +22,12 @@ class DemoSettings(BaseModel):
     max_total_provider_calls: int = Field(default=16, ge=1, le=100)
     max_tokens: int = Field(default=256, ge=1, le=1024)
     model: Literal["deepseek-chat"] = "deepseek-chat"
+
+    @model_validator(mode="after")
+    def isolated_modes(self):
+        if self.enable_baseline and self.enable_protection:
+            raise ValueError("Select one server mode: baseline or protected")
+        return self
 
     @classmethod
     def from_env(cls):
@@ -31,6 +40,7 @@ class DemoSettings(BaseModel):
         provider = os.getenv("AGENTGUARD_LLM_PROVIDER", "fake")
         return cls(
             enable_baseline=enabled("AGENTGUARD_ENABLE_BASELINE"),
+            enable_protection=enabled("AGENTGUARD_ENABLE_PROTECTION"),
             provider=provider,
             enable_real_api=enabled("AGENTGUARD_ENABLE_REAL_API"),
             api_key=SecretStr(os.getenv("DEEPSEEK_API_KEY", "") if provider == "deepseek" else ""),

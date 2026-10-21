@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import App from './App.vue'
+// Preserve the historical P0 component's exact assertions as the P7 app replaces it.
+import App from './P0Shell.vue'
 
 describe('P0 shell', () => {
   it('mounts Vue and Element Plus and identifies its unimplemented status', () => {

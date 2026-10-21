@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="19" failures="0" errors="0" time="2.1951678">
+    <testsuite name="src/App.test.js" timestamp="2026-10-21T15:38:19.574Z" hostname="LAPTOP-F5HJTE31" tests="2" failures="0" errors="0" skipped="0" time="0.1113763">
+        <testcase classname="src/App.test.js" name="P0 shell &gt; mounts Vue and Element Plus and identifies its unimplemented status" time="0.1087195">
+        </testcase>
+        <testcase classname="src/App.test.js" name="P0 shell &gt; blocks network requests in the offline test environment" time="0.0011097">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/Chat.test.js" timestamp="2026-10-21T15:38:19.577Z" hostname="LAPTOP-F5HJTE31" tests="9" failures="0" errors="0" skipped="0" time="0.1549056">
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; loads sessions and restores both independent tool audit cards" time="0.063225">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; hides audit details without changing the request or protected execution feedback" time="0.0272669">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; renders hostile user, model and tool labels as text without HTML execution" time="0.012672">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; never enables chat on a baseline backend" time="0.0065559">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; keeps archived sessions read-only" time="0.0099825">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; labels unapproved REVIEW as not executed instead of successful execution" time="0.0086706">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; reports stream interruption without automatic retry or a claim that tools did not execute" time="0.0118066">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; creates a new backend session and reloads its persisted state" time="0.0069978">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; shows session history failures without enabling writes to an unknown state" time="0.0061115">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/client.test.js" timestamp="2026-10-21T15:38:19.579Z" hostname="LAPTOP-F5HJTE31" tests="7" failures="0" errors="0" skipped="0" time="0.0120554">
+        <testcase classname="src/client.test.js" name="SSE transport &gt; parses split CRLF, multibyte Chinese, event IDs and ordered frames" time="0.0065261">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects an interrupted stream without automatically posting again" time="0.0013084">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects malformed JSON or missing completion: not json" time="0.0003528">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects malformed JSON or missing completion: {}" time="0.0002444">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects non-SSE responses" time="0.0002321">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; reads all history pages without duplicating the cursor" time="0.0017603">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; does not reflect error response bodies into UI errors" time="0.0003903">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/P7.e2e.test.js" timestamp="2026-10-21T15:38:19.580Z" hostname="LAPTOP-F5HJTE31" tests="1" failures="0" errors="0" skipped="0" time="1.9168305">
+        <testcase classname="src/P7.e2e.test.js" name="real Vue UI -&gt; ASGI API -&gt; guarded LangGraph -&gt; SQLite -&gt; SSE -&gt; UI, including refresh" time="1.915889">
+        </testcase>
+    </testsuite>
+</testsuites>

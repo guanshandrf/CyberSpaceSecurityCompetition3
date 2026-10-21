@@ -1,0 +1,60 @@
+{
+  "conclusion": "PASS",
+  "formal": {
+    "python": {
+      "passed": 696,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "total": 696
+    },
+    "web": {
+      "passed": 19,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "total": 19
+    }
+  },
+  "prior_669_preserved_and_passed": true,
+  "sdk_core_unchanged_and_installed_matches": true,
+  "sdk_source_files": 27,
+  "external_runs": {
+    "deepseek": "NOT_RUN",
+    "benchmarks": "NOT_RUN"
+  },
+  "browser_visual_validation": "NOT_RUN: cua kernel sandbox helper startup failed twice",
+  "bugs_fixed": [
+    "production CSS imports resolved to JavaScript modules",
+    "oversized history cursor caused SQLite integer overflow"
+  ],
+  "source_hashes": {
+    "src/agentguard/__init__.py": "f6eadc046eb63566c637ad074c09ccbf37a4cc966ee54c4ca052405834a8363e",
+    "src/agentguard/adapters/langgraph.py": "dbba697c3d404bd2166524758c1fb192bf87561f225f9cc75edff1572b3ca709",
+    "src/agentguard/adapters/__init__.py": "62ff7574f4447fecc9eeed914948f4561828cd5a4a998b2504afb50fdfe77b9b",
+    "src/agentguard/audit/store.py": "dca6a582b7926f53ccc5bd232064a532d846f7094eb7b435286b7ab673e4b394",
+    "src/agentguard/audit/__init__.py": "2e06c5b036830486bc8394e5372960b0a571c3326706ad2a8f7ba5948e63df3f",
+    "src/agentguard/contracts/correlation.py": "fefc2106c95d6148868f9d13eccc769758d488ed8ee9f26c49761d29a761c7f8",
+    "src/agentguard/contracts/interfaces.py": "4f3ebf10fca1a30ef9f64cfaf39c7588b54e6e1557bd2b93b4276d041290ec84",
+    "src/agentguard/contracts/models.py": "25ac3f03031cc87ef65d892ec54e388df4b529107df7e3c6c0e035d5f70a708e",
+    "src/agentguard/contracts/__init__.py": "699de45832456288b24eb6eed3fe3c2da353c97b371ea8de63369510ddd7e7e0",
+    "src/agentguard/core/__init__.py": "02f0f3ad78ababbd9986788551bf0bbdb2b6c5929531f3cedf324a9acf319ed6",
+    "src/agentguard/detectors/redactor.py": "aa60826032538b4f71220eb9d1bd60380c59c62c41e89ebc6e674db1da51336a",
+    "src/agentguard/detectors/registration.py": "cb67d9b9ca1a141aae4fb286dd9cbea2956c274bc1b2e244ef4d65d4259fca56",
+    "src/agentguard/detectors/results.py": "e9ca5f581abf2a3e087aefcf77e3a05896910fd4285b199deb1b065f29dd6824",
+    "src/agentguard/detectors/__init__.py": "20e8ae0b97a3fba322b68f3eabe2dff343ee52ee402b622ba7462de833039236",
+    "src/agentguard/executor/guarded.py": "2fcf59cd1f7734dff2f59f26cbdc9a9d3f2a889d49df6521c2acbe63dc8b231e",
+    "src/agentguard/executor/results.py": "d901ce2b6bc5fc0e6ecc6c8e30ce0de6fc353196fc0b9d8d131136988eab8f61",
+    "src/agentguard/executor/__init__.py": "da5102fbff393ca13135f7a16cc45d7abe0b600b021d18e28fab4125f582adf4",
+    "src/agentguard/gates/gate0.py": "5a54a64a35b3644d36ef7d7e1767fbbd49a65805fff0581e7d30d67683440cdd",
+    "src/agentguard/gates/gate1.py": "44d69f9232be2498aec259c55daf00874289847dd92751d0ad7f93b5880fa639",
+    "src/agentguard/gates/gate2.py": "f4ee9fd125a7de50b01d4af4df7ed26e8649df6d832ba5b74472562ea39cee6b",
+    "src/agentguard/gates/__init__.py": "d50993e01d99da9cb36e4358e1352eafbda13bf9a463c5743ce461d68d7aa227",
+    "src/agentguard/policies/binding.py": "6e4fd17c5030f9d8ba80f2e64615d34fb9d274df437095a1d1d58bd072572f5b",
+    "src/agentguard/policies/engine.py": "e9fc30b6f6c9d479f17ab7f5435276fd8bdd72ab06f23be3cfbc15e9069789e2",
+    "src/agentguard/policies/schema.py": "8dc19eb51e616035827821a2d485f7a804ed6e31f44c83abf02e8e2c2d1723e3",
+    "src/agentguard/policies/__init__.py": "d58b66434f48f79603c582d8483e652f18c7b298ff69a09b68175178d20d88e3",
+    "src/agentguard/registry/tools.py": "1c62c4ff5f68b4bae97dfd7e93ff0a085481758bc7bb3f39958a3f510ec1efe1",
+    "src/agentguard/registry/__init__.py": "9e40486ea753f592439f9daa991341b232a7fd7c845fdfbc8b295fb1526cca24"
+  }
+}

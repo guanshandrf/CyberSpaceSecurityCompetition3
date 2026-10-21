@@ -1,0 +1,21 @@
+
+> agentguard-web@0.0.0 build
+> vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 1601 modules transformed.
+✗ Build failed in 1.83s
+error during build:
+[vite:css] [postcss] postcss-import: D:\Projects\Work\competition3\apps\web\node_modules\element-plus\es\components\button\style\css.mjs:1:1: Unknown word import
+file: D:\Projects\Work\competition3\apps\web\node_modules\element-plus\es\components\button\style\css.mjs:1:0 (D:/Projects/Work/competition3/apps/web/src/style.css)
+    at Input.error (D:\Projects\Work\competition3\apps\web\node_modules\postcss\lib\input.js:135:16)
+    at Parser.unknownWord (D:\Projects\Work\competition3\apps\web\node_modules\postcss\lib\parser.js:610:22)
+    at Parser.other (D:\Projects\Work\competition3\apps\web\node_modules\postcss\lib\parser.js:447:12)
+    at Parser.parse (D:\Projects\Work\competition3\apps\web\node_modules\postcss\lib\parser.js:482:16)
+    at parse (D:\Projects\Work\competition3\apps\web\node_modules\postcss\lib\parse.js:11:12)
+    at get root (D:\Projects\Work\competition3\apps\web\node_modules\postcss\lib\no-work-result.js:43:14)
+    at Result.get [as root] (D:\Projects\Work\competition3\apps\web\node_modules\postcss\lib\no-work-result.js:76:21)
+    at loadImportContent (file:///D:/Projects/Work/competition3/apps/web/node_modules/vite/dist/node/chunks/postcss-import.js:408:33)
+    at async Promise.all (index 0)
+    at async resolveImportId (file:///D:/Projects/Work/competition3/apps/web/node_modules/vite/dist/node/chunks/postcss-import.js:387:20)

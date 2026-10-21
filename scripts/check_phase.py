@@ -32,6 +32,7 @@ def offline_environment() -> dict[str, str]:
         AGENTGUARD_ENABLE_REAL_API="false",
         AGENTGUARD_ENABLE_BENCHMARKS="false",
         AGENTGUARD_ENABLE_BASELINE="false",
+        AGENTGUARD_ENABLE_PROTECTION="false",
         LANGSMITH_TRACING="false",
         LANGCHAIN_TRACING_V2="false",
         npm_config_offline="true",
@@ -101,7 +102,9 @@ def conclusion(steps: list[dict], counts: dict[str, dict]) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase", choices=["P0", "P1"], help="Implemented phases: P0, P1")
+    parser.add_argument(
+        "phase", choices=["P0", "P1", "P2", "P3", "P4", "P5", "P6", "P7"], help="Implemented: P0–P7"
+    )
     args = parser.parse_args(argv)
     OUTPUT.mkdir(parents=True, exist_ok=True)
     junit = {
@@ -125,7 +128,16 @@ def main(argv: list[str] | None = None) -> int:
                 "-m",
                 "pytest",
                 "-m",
-                "p0" if args.phase == "P0" else "p0 or p1",
+                {
+                    "P0": "p0",
+                    "P1": "p0 or p1",
+                    "P2": "p0 or p1 or p2",
+                    "P3": "p0 or p1 or p2 or p3",
+                    "P4": "p0 or p1 or p2 or p3 or p4",
+                    "P5": "p0 or p1 or p2 or p3 or p4 or p5",
+                    "P6": "p0 or p1 or p2 or p3 or p4 or p5 or p6",
+                    "P7": "p0 or p1 or p2 or p3 or p4 or p5 or p6 or p7",
+                }[args.phase],
                 f"--basetemp=.cache/pytest-{args.phase}",
                 f"--junitxml={junit['python']}",
             ],

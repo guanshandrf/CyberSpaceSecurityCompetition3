@@ -1,0 +1,33 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.9, pytest-8.4.2, pluggy-1.5.0
+cachedir: .cache\pytest-cache-P7-sdk
+rootdir: D:\Projects\Work\competition3
+configfile: pyproject.toml
+collected 544 items / 14 deselected / 530 selected
+
+tests\unit\test_package.py ............                                  [  2%]
+tests\unit\test_phase_runner.py .........                                [  3%]
+tests\integration\test_installation.py .                                 [  4%]
+tests\security\test_boundaries.py ............                           [  6%]
+tests\p2\test_context.py .................                               [  9%]
+tests\p2\test_correlation.py ..................                          [ 13%]
+tests\p2\test_decisions.py ..................................            [ 19%]
+tests\p2\test_events.py ................................................ [ 28%]
+.......                                                                  [ 29%]
+tests\p2\test_interfaces_and_example.py ..                               [ 30%]
+tests\p3\test_approval_audit.py .......................                  [ 34%]
+tests\p3\test_enforcement.py ........................................... [ 42%]
+...........................                                              [ 47%]
+tests\p3\test_schema.py ........................                         [ 52%]
+tests\p3\test_security_fixes.py ........................................ [ 59%]
+.............................                                            [ 65%]
+tests\p4\test_results.py ............................................... [ 74%]
+                                                                         [ 74%]
+tests\p5\test_registry.py .............................                  [ 79%]
+tests\p6\test_result_intents.py ........................................ [ 87%]
+.............                                                            [ 89%]
+tests\p6\test_negation_scope.py ........................                 [ 94%]
+tests\p6\test_contrast_advice.py ...............................         [100%]
+
+- generated xml file: D:\Projects\Work\competition3\reports\generated\P7-sdk-junit.xml -
+===================== 530 passed, 14 deselected in 11.89s =====================

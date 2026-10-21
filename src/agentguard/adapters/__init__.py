@@ -1,1 +1,1 @@
-"""Reserved for optional framework adapters, isolated from the SDK core."""
+"""Optional adapters. Import a framework module explicitly after installing its extra."""
