@@ -1,6 +1,6 @@
 # AgentGuard 架构（P0 设计基线）
 
-状态：SDK 0.6.0 已实现 Gate 0/1/2、ToolRegistry、受控执行、结果处理和脱敏审计；
+状态：SDK 0.9.0 已实现 Gate 0/1/2、ToolRegistry、受控执行、结果处理和脱敏审计；
 P6 LangGraph Adapter 接入受保护演示，独立基线保留。P1 真实 DeepSeek 冒烟见历史补充报告。
 P6 安全加固补充 Gate0 重审续期、非法调用审计/消息恢复和中英文组合意图规则，
 未变更 P2 协议或总体分层；验收见 `reports/P6-security-fix-acceptance.md`。
@@ -32,6 +32,8 @@ flowchart TD
     UI[Vue 3 + Vite + Element Plus] -->|HTTP / SSE| API[FastAPI]
     API --> Agent[LangGraph + LangChain / DeepSeek Provider]
     Agent --> Adapter[LangGraph Adapter]
+    PythonAgent[纯 Python Agent 循环] --> Simple[SimpleAdapter]
+    Simple --> Events
     Adapter --> Events[注册 / 调用 / 结果统一事件]
     Events --> G0[Gate 0 注册准入]
     Events --> G1[Gate 1 执行前检查]
@@ -65,6 +67,7 @@ Gate 2 无法撤销工具已经产生的副作用。保护范围仅为经过 Ada
 - SDK：Python 3.11+、Pydantic v2；不依赖 API、Web、演示 Agent 或 Benchmark。
 - `contracts/core/gates/detectors/policies/executor/audit` 只依赖标准库、SDK 或其必要通用依赖。
 - `adapters.langgraph` 使用 langgraph 可选 extra；父包不急切导入框架，Core 不反向导入。
+- `adapters.simple` 只依赖 SDK/标准库，复用同一注册表、执行器及结果处理器；只回传安全结果。
 - 演示 Agent 通过公共 SDK 契约/Adapter 接入，不读取 Guard 内部实现。保留默认关闭、
   隔离运行的无 Guard 基线用于受控实验。
 - API 使用 FastAPI、SSE 和 SQLite；Web 审计显示开关只控制展示，不影响后端 Guard。
@@ -81,9 +84,10 @@ Detector 只报告证据；Policy Engine 决定动作；Executor/Result Handler 
 
 P1 基线与 Provider；P2 Pydantic 契约与接口；P3 Gate 1/Executor；P4 Gate 2；
 P5 Gate 0；P6 LangGraph 闭环；P7 UI/审计；P8 四项评测；P9 异构接入和工程加固。
-P0–P7 已实现，core 仍预留；检测器、注册表、执行器和可选 Adapter 具备独立模块。
+P0–P9 工程已实现，P8 完整原生评测仍为 PARTIAL；core 仍预留；检测器、注册表、执行器和可选 Adapter 具备独立模块。
 ToolBinding 是可信执行配置，ToolRegistry 实现注册准入，LangGraphAdapter 组装三 Gate 闭环。
-接入方式、生命周期、关联和覆盖限制见 `docs/langgraph.md`。P8–P9 尚未实施。
+接入方式、生命周期、关联和覆盖限制见 `docs/langgraph.md` 和 `docs/simple-agent.md`。
+P8 官方案例/组件的真实小规模重放见 reports/P8-acceptance.md，不宣称完整原生成绩。
 SDK 默认依赖元数据、源文件静态导入和安装包隔离导入由 P0 测试覆盖；未来动态导入、
 第三方插件与实际执行安全须在相应阶段扩展检查，不能用 P0 检查替代。
 

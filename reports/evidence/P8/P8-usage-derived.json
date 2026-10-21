@@ -1,0 +1,13 @@
+{
+  "attempts": 18,
+  "total_usage": {
+    "prompt_tokens": 9949,
+    "completion_tokens": 2316,
+    "total_tokens": 12265
+  },
+  "raw_results_preserved": true,
+  "original_judgements_unchanged": true,
+  "derived_results": "reports\\generated\\P8-real-20261021T164743Z-68ecb8a4\\results-derived.json",
+  "cost": null,
+  "cost_reason": "verified provider pricing snapshot unavailable"
+}

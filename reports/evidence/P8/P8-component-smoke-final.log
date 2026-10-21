@@ -1,0 +1,10 @@
+agentdojo baseline component probe PASS
+agentdojo full component probe PASS
+injecagent baseline component probe PASS
+injecagent full component probe PASS
+msb baseline component probe PASS
+msb full component probe PASS
+2026-10-22 00:46:18.241 | WARNING  | tau2.utils.utils:<module>:15 - No .env file found
+2026-10-22 00:46:18.241 | INFO     | tau2.utils.utils:<module>:23 - Using data directory from environment: D:\Projects\Work\competition3\.cache\p8-checkouts\tau3\data
+tau3 baseline component probe PASS
+tau3 full component probe PASS

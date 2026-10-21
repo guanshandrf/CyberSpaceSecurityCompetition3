@@ -19,6 +19,8 @@ OUTPUT = ROOT / "reports" / "generated"
 
 def offline_environment() -> dict[str, str]:
     """Do not pass provider credentials or implicit pytest plugins to checks."""
+    temporary = ROOT / ".cache" / "phase-temp"
+    temporary.mkdir(parents=True, exist_ok=True)
     env = {
         name: value
         for name, value in os.environ.items()
@@ -39,6 +41,8 @@ def offline_environment() -> dict[str, str]:
         npm_config_audit="false",
         npm_config_fund="false",
         npm_config_cache=str(ROOT / ".cache" / "npm"),
+        TEMP=str(temporary),
+        TMP=str(temporary),
     )
     return env
 
@@ -103,7 +107,9 @@ def conclusion(steps: list[dict], counts: dict[str, dict]) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "phase", choices=["P0", "P1", "P2", "P3", "P4", "P5", "P6", "P7"], help="Implemented: P0–P7"
+        "phase",
+        choices=["P0", "P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9"],
+        help="Implemented: P0鈥揚8",
     )
     args = parser.parse_args(argv)
     OUTPUT.mkdir(parents=True, exist_ok=True)
@@ -137,6 +143,8 @@ def main(argv: list[str] | None = None) -> int:
                     "P5": "p0 or p1 or p2 or p3 or p4 or p5",
                     "P6": "p0 or p1 or p2 or p3 or p4 or p5 or p6",
                     "P7": "p0 or p1 or p2 or p3 or p4 or p5 or p6 or p7",
+                    "P8": "p0 or p1 or p2 or p3 or p4 or p5 or p6 or p7 or p8",
+                    "P9": "p0 or p1 or p2 or p3 or p4 or p5 or p6 or p7 or p8 or p9",
                 }[args.phase],
                 f"--basetemp=.cache/pytest-{args.phase}",
                 f"--junitxml={junit['python']}",

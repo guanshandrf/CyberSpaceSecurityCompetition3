@@ -1,30 +1,20 @@
-# AgentGuard 当前断点：P7 已验收，继续 P8–P9
+# AgentGuard 交付断点：P9 工程完成，完整评测尚有缺口
 
-用户已授权：完成 P7、检查并修复新问题、GitHub 备份，然后按序完成剩余项目。
-P8 真实 DeepSeek 已明确授权总共最多20次尝试、每次最多256个输出token；凭据仅本机读取。
-所有项目文件操作只限本仓库及子目录，禁止父目录/仓库外项目文件访问。
+2026-10-22，用户授权的连续工程任务已做到P9，停止新增阶段。
 
-## 已完成
+- P7已通过并备份63fe95c至origin/main，715项通过。
+- P8工程730项通过；真实12项官方案例/组件重放，18次DeepSeek成功、12265tokens。
+  完整MSB原生MCP与τ³任务奖励未验证，P8 PARTIAL，不能改为完整官方成绩。
+- P9新增SimpleAdapter与纯Python循环，复用SDK三Gate，无框架依赖；新增29项测试通过。
+  P0–P9累计740Python+19Web=759通过，0失败/错误/跳过。
+  全新无框架SDK环境559通过，14框架用例不选取且在主环境全部运行。
+- SDK0.9.0，P2契约1.0。P9工程PASS，项目总评PARTIAL。
+- reports/P9-acceptance.md、final-acceptance.md和evidence/P8、P9为真实交付证据。
+- 本任务预览进程已核对后停止；P7实际浏览器视觉检查NOT_RUN，不能用jsdom冒充。
 
-- P0–P6 及三轮 P6 安全修复已完成；历史报告保留。
-- P7 最新正式：696 Python + 19 Web = 715 passed，0 failed/errors/skipped。
-- 新增29项后端和17项Web；原669项逐标识保留通过。
-- 本轮修复生产CSS导入和超大SQLite游标边界，已全量回归。
-- 纯SDK环境530 passed，14框架项仅在该环境取消选择，主环境已全部执行。
-- SDK 0.6.0 的27个源码文件未修改；前后端、审计历史和E2E见 reports/P7-acceptance.md。
-- 真实本地HTTP/Vite代理/SSE通过；浏览器工具启动失败，视觉QA未验证。
-- P7未运行真实DeepSeek/Benchmark；P8授权不是已有成绩。
+文件操作只限本仓库，不读/搜索父目录；命令cwd固定根目录。
+pip每次设置TEMP/TMP到.cache。P8一次系统Temp偏差已披露，不越界清理。
+不打印/改动真实Key。授权共20次请求、每次256输出token，已用18次，不再使用剩余预算。
+.cache/p8-live/budget.sqlite不能删除、重置或通过更换目录扩大预算。
 
-## 当前后续
-
-1. P7代码及报告通过凭据排除检查后提交并推送 origin/main，保存真实提交/推送结果。
-2. P8先确认四个官方Benchmark身份、版本/许可证和兼容性。真实实验严格共享20次预算，
-   默认离线测试、无危险工具外发，不能用Fake或规则探针冒充官方成绩。
-3. 顺序完成P9异构Adapter和交付加固。关键失败不得PASS，缺失能力如实PARTIAL。
-4. 用户已授权连续完成，无需逐阶段等待确认；不得伪造实验或突破文件边界。
-
-远端：https://github.com/guanshandrf/CyberSpaceSecurityCompetition3.git。
-工具默认helper可能启动失败，使用审批执行相同仓库内命令，不能改权限。
-解释器 .venv/Scripts/python.exe，Python3.13.9。离线wheel缓存 .cache/wheels。
-代码普通安装后测试，测试TEMP和basetemp均限仓库。不可读取或打印真实.env/Key。
-尚存本地预览进程的PID记录 .cache/p7-preview-pids.json，结束前仅清理本任务启动的进程。
+下一次补完整评测前核对授权与剩余预算，不把完整流程缺口藏进工程PASS。

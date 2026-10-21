@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "prior_python_cases_preserved": 711,
+  "current_python_cases": 740,
+  "new_cases": 29,
+  "sdk_installed_sources_match": true,
+  "sdk_source_files": 28,
+  "p2_contracts_unchanged_from_p7": true
+}

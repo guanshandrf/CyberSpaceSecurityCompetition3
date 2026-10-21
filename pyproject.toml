@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentguard"
-version = "0.6.0"
+version = "0.9.0"
 description = "AgentGuard SDK with Gate 1 security enforcement and controlled tool execution"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -31,6 +31,8 @@ markers = [
     "p5: P5 registration admission, lifecycle and executor enforcement",
     "p6: P6 optional LangGraph adapter and protected end-to-end integration",
     "p7: P7 protected chat UI, persisted audit projection and SSE history",
+    "p8: P8 isolated benchmark adapters, provenance and budget enforcement",
+    "p9: P9 framework-free adapter, concurrency, lifecycle and delivery",
 ]
 filterwarnings = ["error"]
 

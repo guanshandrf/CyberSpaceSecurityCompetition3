@@ -51,7 +51,9 @@ def test_modules_expose_only_authorized_phase_implementations(module):
     elif module == "adapters":
         # P6 may have explicitly imported the optional submodule earlier in this
         # process. Isolated import tests still forbid any eager framework imports.
-        assert public <= {"langgraph"}
+        assert public <= {"langgraph", "simple"}
+        if "simple" in public:
+            assert loaded.simple.__name__ == "agentguard.adapters.simple"
         if "langgraph" in public:
             assert loaded.langgraph.__name__ == "agentguard.adapters.langgraph"
     else:

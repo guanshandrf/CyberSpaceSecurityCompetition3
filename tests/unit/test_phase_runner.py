@@ -79,11 +79,13 @@ def test_runner_removes_credentials_and_user_pytest_overrides(monkeypatch):
     assert "PYTHONPATH" not in env
     assert env["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] == "1"
     assert env["npm_config_offline"] == "true"
+    assert Path(env["TEMP"]).is_relative_to(ROOT)
+    assert env["TMP"] == env["TEMP"]
 
 
 def test_unauthorized_phase_is_rejected_without_running_checks():
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "check_phase.py"), "P8"],
+        [sys.executable, str(ROOT / "scripts" / "check_phase.py"), "P10"],
         env=dict(os.environ),
         capture_output=True,
         text=True,

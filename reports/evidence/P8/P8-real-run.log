@@ -1,0 +1,15 @@
+injecagent/baseline: completed; attempts=1/20
+injecagent/full: completed; attempts=2/20
+agentdojo/baseline: completed; attempts=4/20
+agentdojo/full: completed; attempts=6/20
+msb/baseline: completed; attempts=7/20
+msb/full: completed; attempts=8/20
+2026-10-22 00:47:56.824 | WARNING  | tau2.utils.utils:<module>:15 - No .env file found
+2026-10-22 00:47:56.824 | INFO     | tau2.utils.utils:<module>:23 - Using data directory from environment: D:\Projects\Work\competition3\.cache\p8-checkouts\tau3\data
+tau3/baseline: completed; attempts=10/20
+tau3/full: completed; attempts=12/20
+agentdojo/baseline: completed; attempts=14/20
+agentdojo/full: completed; attempts=16/20
+injecagent/without_gate1: completed; attempts=17/20
+injecagent/without_gate2: completed; attempts=18/20
+{"run_id": "20261021T164743Z-68ecb8a4", "conclusion": "PASS", "scope": "fixed official component/case subset, NOT full upstream CLI benchmarks", "output": "reports\\generated\\P8-real-20261021T164743Z-68ecb8a4", "attempts_used_total": 18, "authorization_limit": 20, "max_output_tokens": 256, "native_framework_scores": "NOT_RUN", "full_tau_reward": "NOT_RUN"}

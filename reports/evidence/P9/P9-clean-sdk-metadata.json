@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "sdk_version": "0.9.0",
+  "framework_packages_absent": {
+    "langgraph": true,
+    "langchain_core": true,
+    "fastapi": true,
+    "agentguard_demo": true,
+    "agentguard_bench": true
+  },
+  "runtime_dependencies": [
+    "pydantic==2.12.4"
+  ]
+}

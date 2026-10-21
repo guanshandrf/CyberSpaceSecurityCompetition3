@@ -16,7 +16,7 @@ from importlib.metadata import version
 import sys
 
 forbidden = {'fastapi', 'starlette', 'langgraph', 'langchain', 'langchain_core',
-             'apps', 'benchmarks', 'vue'}
+             'apps', 'benchmarks', 'agentguard_bench', 'vue'}
 class DenyFrameworks(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname.split('.')[0] in forbidden:
@@ -27,6 +27,7 @@ import agentguard
 modules = ['contracts', 'core', 'gates', 'detectors', 'policies', 'executor', 'adapters', 'audit']
 for name in modules:
     importlib.import_module('agentguard.' + name)
+importlib.import_module('agentguard.adapters.simple')
 assert agentguard.__version__ == version('agentguard')
 assert not forbidden.intersection(sys.modules)
 print('isolated installed SDK import: OK')

@@ -1,7 +1,8 @@
 # AgentGuard
 
-面向异构 LLM Agent 的工具调用安全中间件。**当前实现至 P7：三 Gate、注册表、受控执行、
-LangGraph 接入及聊天/逐调用安全审计界面；独立基线保留，Benchmark 尚未接入。**
+面向异构 LLM Agent 的工具调用安全中间件。**当前工程实现至 P9：三 Gate、注册表、受控执行、
+LangGraph 与纯 Python 双适配器、聊天审计界面和独立评测包。P8 仅完成官方案例/组件子集，
+完整原生评测未完成，项目总体验收为 PARTIAL。**
 后续开发必须逐阶段获得授权，实施依据为根目录
 `AgentGuard_Codex_分阶段实施与验收计划.md` 和 `AGENTS.md`。
 
@@ -13,6 +14,9 @@ Python 3.11+；Node.js 22.12+（Vite 7 要求），npm 11。实测版本见各�
 先确认所用解释器为 Python 3.11+；多 Python 环境不要用指向 3.10 的别名创建虚拟环境。
 
 ```powershell
+New-Item -ItemType Directory -Force .cache/task-temp | Out-Null
+$env:TEMP=(Join-Path (Get-Location) ".cache/task-temp")
+$env:TMP=$env:TEMP
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip --isolated download --index-url https://pypi.org/simple --disable-pip-version-check --no-cache-dir --only-binary=:all: --dest .cache/wheels -r requirements-dev.lock
 .\.venv\Scripts\python.exe -m pip --isolated install --no-index --find-links=.cache/wheels -r requirements-dev.lock
@@ -125,7 +129,7 @@ $env:AGENTGUARD_ENABLE_REAL_API='false'
 
 两种模式互斥且默认均关闭；客户端不能切换 Guard。保护模式仅覆盖 Adapter 接管的工具，
 不覆盖另建原始 ToolNode、框架内置/托管工具或恶意 Python 代码。审计保存在沙箱
-audit.sqlite，仅供后端检查；P7 Web 审计界面尚未开发。
+audit.sqlite，另有脱敏的 Web 展示历史；P7 审计界面已接入。
 
 ## 检查与结果
 
@@ -137,22 +141,26 @@ audit.sqlite，仅供后端检查；P7 Web 审计界面尚未开发。
 .\.venv\Scripts\python.exe scripts/check_phase.py P4
 .\.venv\Scripts\python.exe scripts/check_phase.py P5
 .\.venv\Scripts\python.exe scripts/check_phase.py P6
+.\.venv\Scripts\python.exe scripts/check_phase.py P7
+.\.venv\Scripts\python.exe scripts/check_phase.py P8
+.\.venv\Scripts\python.exe scripts/check_phase.py P9
+# P8/P9 全量工程测试另需安装独立评测包：pip install --no-index --no-build-isolation --no-deps .\benchmarks
 # 单独排查：
 .\.venv\Scripts\python.exe -m ruff check .
 .\.venv\Scripts\python.exe -m ruff format --check .
 $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
-.\.venv\Scripts\python.exe -m pytest -m 'p0 or p1 or p2 or p3 or p4 or p5 or p6' --basetemp=.cache/pytest-current
+.\.venv\Scripts\python.exe -m pytest -m 'p0 or p1 or p2 or p3 or p4 or p5 or p6 or p7 or p8 or p9' --basetemp=.cache/pytest-current
 npm.cmd --prefix apps/web run test
 npm.cmd --prefix apps/web run build
 ```
 
 `scripts/check_phase.py P0` 是跨平台的本地 `make check` 等价命令：执行依赖完整性、Ruff、
-pytest、前端测试与生产构建。每阶段运行累计回归，P6 包含 P0–P6；
-脚本仅接受已实现的 P0–P6，P7 及以后参数返回非零。
+pytest、前端测试与生产构建。每阶段运行累计回归，P9 包含 P0–P9；
+脚本接受 P0–P9，其他阶段参数返回非零。
 任一步失败、JUnit 丢失或报告损坏均返回非零；跳过测试不会得到 PASS。
 每次运行先移除本次使用的旧报告，避免把旧通过结果当作新结果。
 
-机器结果写入 `reports/generated/Pn-results.json`（n 为 0–6），包含真实命令、退出码、耗时、JUnit
+机器结果写入 `reports/generated/Pn-results.json`（n 为 0–9），包含真实命令、退出码、耗时、JUnit
 测试统计和日志路径；Python/Web JUnit 与步骤日志保存在同目录。项目结论见
 `reports/P0-acceptance.md`、`reports/P1-acceptance.md`、`reports/P2-acceptance.md`（历史）与 `reports/P3-acceptance.md`。
 generated 文件保留在本地但默认不提交。
@@ -164,21 +172,23 @@ Windows asyncio 所需的标准库 socketpair 本地 IPC 被单独允许，普�
 
 | 路径 | 当前状态/用途 |
 | --- | --- |
-| `src/agentguard` | 可独立安装的 0.6.0 SDK，三 Gate/注册表/Executor 和可选 Adapter |
+| `src/agentguard` | 可独立安装的 0.9.0 SDK，三 Gate/注册表/Executor 和可选 Adapter |
 | `apps/api` | 独立基线及 P6 保护模式，LangGraph/FastAPI/Fake/可选 DeepSeek Provider |
-| `apps/web` | Vue 3 + Vite + Element Plus 空应用与挂载测试 |
+| `apps/web` | Vue 3 + Vite + Element Plus 聊天、审计卡片与端到端挂载测试 |
 | `tests/unit`, `tests/integration`, `tests/security` | P0 包、依赖隔离、验收器和离线环境检查 |
 | `tests/p1` | P1 API/SSE、Provider、沙箱与依赖测试 |
 | `tests/p2`, `examples` | P2 数据契约、伪造/关联测试和不执行工具的 Mock Adapter |
 | `tests/p3` | Gate 1、实际执行计数、审批/预算/重放、路径和审计回归 |
 | `tests/p4`–`tests/p6` | 结果/注册安全与真实 LangGraph + Fake 的端到端回归 |
-| `tests/e2e` | 文档占位；业务 E2E 属于 P7 |
-| `configs`, `fixtures`, `benchmarks` | 后续配置、隔离样例、评测的占位说明 |
+| `tests/e2e` | 文档索引；实际 P7 E2E 位于 apps/web/src/P7.e2e.test.js |
+| `tests/p7`–`tests/p9` | 聊天历史、评测安全、独立适配与并发回归 |
+| `configs`, `fixtures` | 配置说明及受控攻击/正常样例 |
+| `benchmarks` | 独立 agentguard-bench 包、四套固定上游来源与案例重放 |
 | `docs` | 架构、契约草案、威胁模型、评测接入计划 |
 | `scripts`, `reports` | 阶段检查入口、真实执行结果与验收报告 |
 
 默认 SDK 仅依赖 Pydantic v2。SDK 内 LangGraph/LangChain 只允许进入可选 Adapter；
-FastAPI、Vue、演示 Agent 与 Benchmark 不得成为 SDK 依赖。SQLite 最小审计已实现，会话持久化尚未实现。
+FastAPI、Vue、演示 Agent 与 Benchmark 不得成为 SDK 依赖。SQLite 审计与脱敏展示历史已实现；执行会话仍为内存，重启后历史只读。
 
 ## 安全与外部实验
 
@@ -186,9 +196,19 @@ FastAPI、Vue、演示 Agent 与 Benchmark 不得成为 SDK 依赖。SQLite 最�
 `--env-file .env` 显式读取环境文件；API 请求不能覆盖服务端 Provider 或权限配置。
 不要把任何秘密置于 `VITE_` 变量（会进入浏览器构建）。真实 API 还需独立开关、服务端密钥，
 受每会话和每进程调用数、每响应 token 上限限制，无自动重试；重启进程会重置本地计数。
-这些限制用于本地实验，不是 SDK Guard 或账户级费用保证。Benchmark 仍未实现。
+这些演示限制用于本地实验，不是 SDK Guard 或账户级费用保证。P8 评测另用持久化尝试账本；
+18次真实 DeepSeek 请求/12265 tokens 已执行，完整原生 Benchmark 未验证，见 P8 报告。
 已记录一次 P1 真实 DeepSeek 正常工具冒烟；P3 验证本地受控调用阻断，不代表真实模型或 Benchmark 实验。
 
 技术细节见 [架构](docs/architecture.md)、[契约草案](docs/contracts.md)、
 [威胁模型](docs/threat-model.md)、[评测计划](docs/evaluation-plan.md)。
 
+
+## P8–P9 与最终交付
+
+独立评测说明见 [benchmarks](benchmarks/README.md)，第二适配器见 [纯 Python 接入](docs/simple-agent.md)。
+运行 `examples/simple_agent.py` 可离线演示真实 SDK 执行链；`scripts/stress_simple.py --calls 200`
+运行本地压力探针。SDK 0.9.0 不引入框架/Provider/Benchmark 运行依赖，P2 schema 保持1.0。
+
+[部署说明](docs/deployment.md)、[P9报告](reports/P9-acceptance.md)、[最终验收](reports/final-acceptance.md)。
+P8 PARTIAL、真实浏览器视觉检查未运行、规则漏报/误报及可用性损失均如实保留。

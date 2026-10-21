@@ -1,4 +1,23 @@
-# 四项 Benchmark 接入计划（P0）
+# 四项 Benchmark 接入与验证范围
+
+P8 已核实官方来源、锁定版本和许可，并运行 18 次真实 DeepSeek 请求、12 个固定组件/案例
+试验及 baseline/full/两种消融。**目前均为选定组件/案例接入，不是全量原生评测。**
+最新证据和技术限制见 reports/P8-acceptance.md、benchmarks/README.md；下文 P0 假设是
+历史设计，不能覆盖 P8 的实际边界。SDK 未引入 Benchmark 依赖。
+
+| 项目 | 官方来源 | 固定版本 | 实际范围 |
+| --- | --- | --- | --- |
+| AgentDojo | ethz-spylab/agentdojo | 089ed468…，0.1.35 | banking v1 任务/注入/工具/原判分组件 |
+| InjecAgent | uiuc-kang-lab/InjecAgent | f19c9f2c… | dh_base.0 finetuned 首步与原判分 |
+| MSB | dongsenzhang/MSB | c1d6a701… | false_error/modify_data、虚拟工具、适配日志、原判分 |
+| τ³-bench | sierra-research/tau2-bench | fc0055dc…，v1.0.1 | retail.50 原工具/动作判分；非完整任务奖励 |
+
+精确 SHA 和 MIT 许可见 benchmarks/sources.lock.json / licenses。API 18 次共 12,265 tokens，
+剩余 2 次未使用；无已验证价目，费用 unavailable。小样本攻击在 baseline 下也未成功，
+不能宣称 ASR 提升；被污染的银行结果整条阻断导致合法任务失败的代价也保留。
+τ³ action reward=1 不能冒充完整 task reward=1。
+
+## P0 历史设计假设（保留）
 
 当前均为**未接入、未下载、未运行**；下表是待 P8 验证的适配假设，不是兼容性结论。
 不预填版本、许可证或成绩。P8 先定位官方来源并锁定 commit/tag，核对许可证、数据使用

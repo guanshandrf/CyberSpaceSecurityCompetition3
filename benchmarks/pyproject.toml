@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentguard-bench"
+version = "0.8.0"
+description = "Isolated, provenance-aware AgentGuard benchmark integration"
+requires-python = ">=3.11"
+dependencies = ["agentguard==0.9.0"]
+
+[project.optional-dependencies]
+live = ["python-dotenv==1.2.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -22,4 +22,4 @@ dependencies = [
 where = ["src"]
 
 [project.optional-dependencies]
-guard = ["agentguard==0.6.0"]
+guard = ["agentguard==0.9.0"]

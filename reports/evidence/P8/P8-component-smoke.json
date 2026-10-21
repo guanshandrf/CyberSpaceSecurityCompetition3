@@ -1,0 +1,54 @@
+{
+  "conclusion": "PASS",
+  "scope": "offline component integration; NOT benchmark/API results",
+  "probes": [
+    {
+      "benchmark": "agentdojo",
+      "mode": "baseline",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    },
+    {
+      "benchmark": "agentdojo",
+      "mode": "full",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    },
+    {
+      "benchmark": "injecagent",
+      "mode": "baseline",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    },
+    {
+      "benchmark": "injecagent",
+      "mode": "full",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    },
+    {
+      "benchmark": "msb",
+      "mode": "baseline",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    },
+    {
+      "benchmark": "msb",
+      "mode": "full",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    },
+    {
+      "benchmark": "tau3",
+      "mode": "baseline",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    },
+    {
+      "benchmark": "tau3",
+      "mode": "full",
+      "component_probe": "PASS",
+      "provider": "offline fixture; NOT performance measurement"
+    }
+  ]
+}

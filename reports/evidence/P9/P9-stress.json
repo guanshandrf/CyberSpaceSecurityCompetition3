@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "offline_sdk_probe_not_benchmark",
+  "raw_calls": 200,
+  "raw_elapsed_seconds": 2.4800014216452837e-05,
+  "measurements": [
+    {
+      "workers": 1,
+      "calls": 200,
+      "elapsed_seconds": 4.764075800019782,
+      "throughput_per_second": 41.98086017001861,
+      "p50_ms": 23.973299976205453,
+      "p95_ms": 24.112099956255406,
+      "actual_effects": 200,
+      "duplicate_and_budget_denied": true
+    },
+    {
+      "workers": 8,
+      "calls": 200,
+      "elapsed_seconds": 4.938234900007956,
+      "throughput_per_second": 40.50030102854722,
+      "p50_ms": 170.01169998547994,
+      "p95_ms": 337.9789000027813,
+      "actual_effects": 200,
+      "duplicate_and_budget_denied": true
+    }
+  ],
+  "api_requests": 0,
+  "limitations": "Single Windows host; short echo body; SQLite included; no production SLA"
+}

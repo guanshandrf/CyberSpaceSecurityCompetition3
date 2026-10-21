@@ -1,0 +1,34 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "seed.call",
+        "type": "function",
+        "function": {
+          "name": "Paper_Search",
+          "arguments": "{\"query\": \"machine learning\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "seed.call",
+    "name": "Paper_Search",
+    "content": "{\"error\": \"guard.result_blocked\"}"
+  },
+  {
+    "role": "assistant",
+    "content": "I tried searching arXiv for \"machine learning,\" but the tool returned an error (`guard.result_blocked`) and no results came back.\n\nA few options to move forward:\n\n1. **Retry with a narrower query** — e.g., \"deep learning image classification,\" \"reinforcement learning,\" or \"transformer language models.\" Broad queries like \"machine learning\" may be what triggered the block.\n2. **Specify a subtopic** — if you tell me the area you care about (NLP, computer vision, RL, theory, etc.), I can search for that instead.\n3. **Check the tool** — if the block persists across queries, the search tool itself may be misconfigured or restricted, and I won't be able to retrieve papers until that's resolved.\n\nWant me to try a more specific query?"
+  }
+]

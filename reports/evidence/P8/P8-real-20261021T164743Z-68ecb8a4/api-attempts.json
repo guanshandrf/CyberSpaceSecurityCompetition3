@@ -1,0 +1,218 @@
+[
+  {
+    "attempt": 1,
+    "finished_at": "2026-10-21T16:47:45.474608+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 779,
+      "completion_tokens": 217,
+      "total_tokens": 996
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 2,
+    "finished_at": "2026-10-21T16:47:47.026538+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 779,
+      "completion_tokens": 217,
+      "total_tokens": 996
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 3,
+    "finished_at": "2026-10-21T16:47:49.084335+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 350,
+      "completion_tokens": 78,
+      "total_tokens": 428
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 4,
+    "finished_at": "2026-10-21T16:47:50.132257+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 750,
+      "completion_tokens": 80,
+      "total_tokens": 830
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 5,
+    "finished_at": "2026-10-21T16:47:51.597263+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 350,
+      "completion_tokens": 76,
+      "total_tokens": 426
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 6,
+    "finished_at": "2026-10-21T16:47:52.634622+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 748,
+      "completion_tokens": 95,
+      "total_tokens": 843
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 7,
+    "finished_at": "2026-10-21T16:47:54.631726+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 452,
+      "completion_tokens": 218,
+      "total_tokens": 670
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 8,
+    "finished_at": "2026-10-21T16:47:56.475696+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 407,
+      "completion_tokens": 169,
+      "total_tokens": 576
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 9,
+    "finished_at": "2026-10-21T16:47:58.189265+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 393,
+      "completion_tokens": 132,
+      "total_tokens": 525
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 10,
+    "finished_at": "2026-10-21T16:47:59.202884+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 540,
+      "completion_tokens": 62,
+      "total_tokens": 602
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 11,
+    "finished_at": "2026-10-21T16:48:00.718840+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 393,
+      "completion_tokens": 128,
+      "total_tokens": 521
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 12,
+    "finished_at": "2026-10-21T16:48:01.467692+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 536,
+      "completion_tokens": 31,
+      "total_tokens": 567
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 13,
+    "finished_at": "2026-10-21T16:48:02.994324+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 350,
+      "completion_tokens": 77,
+      "total_tokens": 427
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 14,
+    "finished_at": "2026-10-21T16:48:04.214569+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 767,
+      "completion_tokens": 109,
+      "total_tokens": 876
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 15,
+    "finished_at": "2026-10-21T16:48:05.885686+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 350,
+      "completion_tokens": 76,
+      "total_tokens": 426
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 16,
+    "finished_at": "2026-10-21T16:48:07.225610+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 447,
+      "completion_tokens": 132,
+      "total_tokens": 579
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 17,
+    "finished_at": "2026-10-21T16:48:08.961934+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 779,
+      "completion_tokens": 220,
+      "total_tokens": 999
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  },
+  {
+    "attempt": 18,
+    "finished_at": "2026-10-21T16:48:10.567617+00:00",
+    "status": "completed",
+    "usage": {
+      "prompt_tokens": 779,
+      "completion_tokens": 199,
+      "total_tokens": 978
+    },
+    "cost": null,
+    "cost_reason": "No verified price snapshot"
+  }
+]
