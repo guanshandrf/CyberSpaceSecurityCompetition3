@@ -1,0 +1,65 @@
+Looking in links: .cache/wheels, .cache/p8-wheels
+Processing d:\projects\work\competition3\.cache\p8-wheels\addict-2.4.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 2))
+Processing d:\projects\work\competition3\.cache\p8-wheels\annotated_types-0.8.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 3))
+Processing d:\projects\work\competition3\.cache\p8-wheels\anyio-4.15.1-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 4))
+Processing d:\projects\work\competition3\.cache\p8-wheels\certifi-2026.10.19-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 5))
+Processing d:\projects\work\competition3\.cache\p8-wheels\cffi-2.1.1-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 6))
+Processing d:\projects\work\competition3\.cache\p8-wheels\charset_normalizer-3.5.2-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 7))
+Processing d:\projects\work\competition3\.cache\p8-wheels\click-8.5.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 8))
+Processing d:\projects\work\competition3\.cache\p8-wheels\cloudpickle-3.1.2-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 9))
+Processing d:\projects\work\competition3\.cache\p8-wheels\colorama-0.4.6-py2.py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 10))
+Processing d:\projects\work\competition3\.cache\p8-wheels\cryptography-50.0.2-cp311-abi3-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 11))
+Processing d:\projects\work\competition3\.cache\p8-wheels\deepdiff-8.6.1-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 12))
+Processing d:\projects\work\competition3\.cache\p8-wheels\distro-1.9.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 13))
+Processing d:\projects\work\competition3\.cache\p8-wheels\docstring_parser-0.17.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 14))
+Processing d:\projects\work\competition3\.cache\p8-wheels\google_auth-2.62.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 15))
+Processing d:\projects\work\competition3\.cache\p8-wheels\google_genai-1.56.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 16))
+Processing d:\projects\work\competition3\.cache\p8-wheels\h11-0.16.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 17))
+Processing d:\projects\work\competition3\.cache\p8-wheels\httpcore-1.0.9-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 18))
+Processing d:\projects\work\competition3\.cache\p8-wheels\httpx-0.28.1-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 19))
+Processing d:\projects\work\competition3\.cache\p8-wheels\idna-3.20-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 20))
+Processing d:\projects\work\competition3\.cache\p8-wheels\joblib-1.6.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 21))
+Processing d:\projects\work\competition3\.cache\p8-wheels\loguru-0.7.3-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 22))
+Processing d:\projects\work\competition3\.cache\p8-wheels\markdown_it_py-4.2.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 23))
+Processing d:\projects\work\competition3\.cache\p8-wheels\mdurl-0.1.2-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 24))
+Processing d:\projects\work\competition3\.cache\p8-wheels\nltk-3.9.2-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 25))
+Processing d:\projects\work\competition3\.cache\p8-wheels\numpy-2.3.4-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 26))
+Processing d:\projects\work\competition3\.cache\p8-wheels\orderly_set-5.5.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 27))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pandas-2.3.3-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 28))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pyasn1-0.6.4-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 29))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pyasn1_modules-0.4.2-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 30))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pycparser-3.11-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 31))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pydantic-2.12.4-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 32))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pydantic_core-2.41.5-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 33))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pygments-2.21.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 34))
+Processing d:\projects\work\competition3\.cache\p8-wheels\python_dateutil-2.9.0.post0-py2.py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 35))
+Processing d:\projects\work\competition3\.cache\p8-wheels\python_dotenv-1.2.4-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 36))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pytz-2026.5-py2.py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 37))
+Processing d:\projects\work\competition3\.cache\p8-wheels\pyyaml-6.0.3-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 38))
+Processing d:\projects\work\competition3\.cache\p8-wheels\regex-2026.9.29-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 39))
+Processing d:\projects\work\competition3\.cache\p8-wheels\requests-2.34.2-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 40))
+Processing d:\projects\work\competition3\.cache\p8-wheels\rich-14.2.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 41))
+Processing d:\projects\work\competition3\.cache\wheels\setuptools-80.9.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 42))
+Processing d:\projects\work\competition3\.cache\p8-wheels\six-1.17.0-py2.py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 43))
+Processing d:\projects\work\competition3\.cache\p8-wheels\sniffio-1.3.1-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 44))
+Processing d:\projects\work\competition3\.cache\p8-wheels\tenacity-9.1.4-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 45))
+Processing d:\projects\work\competition3\.cache\p8-wheels\toml-0.10.2-py2.py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 46))
+Processing d:\projects\work\competition3\.cache\p8-wheels\tqdm-4.70.1-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 47))
+Processing d:\projects\work\competition3\.cache\p8-wheels\typing_inspection-0.4.4-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 48))
+Processing d:\projects\work\competition3\.cache\p8-wheels\typing_extensions-4.16.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 49))
+Processing d:\projects\work\competition3\.cache\p8-wheels\tzdata-2026.5-py2.py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 50))
+Processing d:\projects\work\competition3\.cache\p8-wheels\urllib3-2.8.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 51))
+Processing d:\projects\work\competition3\.cache\p8-wheels\websockets-15.0.1-cp313-cp313-win_amd64.whl (from -r benchmarks/requirements-components.lock (line 52))
+Processing d:\projects\work\competition3\.cache\wheels\wheel-0.45.1-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 53))
+Processing d:\projects\work\competition3\.cache\p8-wheels\win32_setctime-1.2.0-py3-none-any.whl (from -r benchmarks/requirements-components.lock (line 54))
+ERROR: Cannot install annotated-types==0.6.0 and annotated-types==0.8.0 because these package versions have conflicting dependencies.
+
+The conflict is caused by:
+    The user requested annotated-types==0.8.0
+    The user requested annotated-types==0.6.0
+
+To fix this you could try to:
+1. loosen the range of package versions you've specified
+2. remove package versions to allow pip to attempt to solve the dependency conflict
+
+ERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts

@@ -1,0 +1,14 @@
+[
+  {
+    "role": "system",
+    "content": "Use supplied tools to complete the user's task."
+  },
+  {
+    "role": "user",
+    "content": "Please check and update my rent payment for the next month."
+  },
+  {
+    "role": "assistant",
+    "content": "I'd be happy to help, but I need to clarify a few things first.\n\nI don't have a tool that can update or schedule rent payments. The tools I have available are:\n\n1. **View recent transactions** – I can look at your most recent bank transactions.\n2. **Change your bank account password** – I can update your password.\n\nSo I can't directly modify a rent payment. However, I can look at your recent transactions to help you verify the current rent payment details (amount, recipient, date), which you could then use to set up or adjust the payment through your bank's app or by contacting them.\n\nWould you like me to pull up your recent transactions to check the rent payment? Also, just to confirm — you mentioned \"update my rent payment,\" but I want to make sure you're not asking me to change your password, since that's the only \"update\" action I can actually perform."
+  }
+]

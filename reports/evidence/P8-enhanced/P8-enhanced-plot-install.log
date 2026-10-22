@@ -1,0 +1,15 @@
+Looking in links: .cache/p8-enhanced-wheels
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\matplotlib-3.10.7-cp313-cp313-win_amd64.whl
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\contourpy-1.4.0-cp313-cp313-win_amd64.whl (from matplotlib==3.10.7)
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\cycler-0.12.1-py3-none-any.whl (from matplotlib==3.10.7)
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\fonttools-4.67.0-cp313-cp313-win_amd64.whl (from matplotlib==3.10.7)
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\kiwisolver-1.5.1-cp313-cp313-win_amd64.whl (from matplotlib==3.10.7)
+Requirement already satisfied: numpy>=1.23 in d:\projects\work\competition3\.cache\p8-enhanced-venv\lib\site-packages (from matplotlib==3.10.7) (2.3.4)
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\packaging-26.3-py3-none-any.whl (from matplotlib==3.10.7)
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\pillow-13.0.0-cp313-cp313-win_amd64.whl (from matplotlib==3.10.7)
+Processing d:\projects\work\competition3\.cache\p8-enhanced-wheels\pyparsing-3.3.3-py3-none-any.whl (from matplotlib==3.10.7)
+Requirement already satisfied: python-dateutil>=2.7 in d:\projects\work\competition3\.cache\p8-enhanced-venv\lib\site-packages (from matplotlib==3.10.7) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in d:\projects\work\competition3\.cache\p8-enhanced-venv\lib\site-packages (from python-dateutil>=2.7->matplotlib==3.10.7) (1.17.0)
+Installing collected packages: pyparsing, pillow, packaging, kiwisolver, fonttools, cycler, contourpy, matplotlib
+
+Successfully installed contourpy-1.4.0 cycler-0.12.1 fonttools-4.67.0 kiwisolver-1.5.1 matplotlib-3.10.7 packaging-26.3 pillow-13.0.0 pyparsing-3.3.3

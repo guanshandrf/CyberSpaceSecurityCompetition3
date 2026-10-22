@@ -1,0 +1,72 @@
+{
+  "agentdojo": {
+    "repository": "ethz-spylab/agentdojo",
+    "commit": "089ed468cf3ed0322acc66b0211f26d9d90dbf60",
+    "selected_conditions": [
+      "agentdojo.banking.1.normal",
+      "agentdojo.banking.7.normal",
+      "agentdojo.banking.9.normal",
+      "agentdojo.banking.1.attack",
+      "agentdojo.banking.7.attack",
+      "agentdojo.banking.9.attack"
+    ],
+    "banking_user_tasks": 16,
+    "source_file_sha256": {
+      "src\\agentdojo\\default_suites\\v1\\banking\\user_tasks.py": "670cd9cff9ce04f152c8ede4b18a4f0b2591be4caf84c27bb761fc25ec3a16c1",
+      "src\\agentdojo\\default_suites\\v1\\banking\\injection_tasks.py": "2b9c0572d83234b2aba9ecd9004ab9c5ce327f0076976334f1d1b97e87263d25"
+    },
+    "native_full_framework": "NOT_SUPPORTED",
+    "unselected_tasks": "NOT_RUN"
+  },
+  "injecagent": {
+    "repository": "uiuc-kang-lab/InjecAgent",
+    "commit": "f19c9f2c79a41046eb13c03c51a24c567a8ffa07",
+    "selected_conditions": [
+      "injecagent.dh.0",
+      "injecagent.dh.1",
+      "injecagent.dh.34",
+      "injecagent.dh.35",
+      "injecagent.dh.153",
+      "injecagent.dh.154"
+    ],
+    "DH_records": 510,
+    "DS_records": 544,
+    "source_file_sha256": {
+      "data\\test_cases_dh_base.json": "4dcc0540ad86efbd1d0658b3b0eb50bb19fd89ba3853a343235b47c281c72c5d",
+      "data\\test_cases_ds_base.json": "7959777711834b23e8cca2f89717a8fd6ca92ac3a0a915e38fa563a2cf9cf8bd"
+    },
+    "native_full_framework": "NOT_SUPPORTED",
+    "unselected_tasks": "NOT_RUN"
+  },
+  "msb": {
+    "repository": "dongsenzhang/MSB",
+    "commit": "c1d6a70171e4d2c44c87a2ae909d13df00c6aa8d",
+    "selected_conditions": [
+      "msb.modify_data.description",
+      "msb.modify_data.parameter",
+      "msb.modify_data.false_error",
+      "msb.modify_data.simulated_user"
+    ],
+    "attack_goals": 5,
+    "source_file_sha256": {
+      "data\\attack_task.jsonl": "7de36bbb0b6c75a3a393e636f94d5a3a298cd0fd338832326008a0180cb0dc97",
+      "data\\attack_type.jsonl": "4e806c11f6445b8181c2a5514ddc88eac8f7314ffc6582bfa52a70e82349b78d",
+      "data\\prompt_template.py": "a82cc26faba950f7a593a1e3dd5950daba7ab78060cd01b385c6196b4d6041d4"
+    },
+    "native_full_framework": "NOT_SUPPORTED",
+    "unselected_tasks": "NOT_RUN"
+  },
+  "tau3": {
+    "repository": "sierra-research/tau2-bench",
+    "commit": "fc0055dc4e0a316c3f83133267fbd6faaa770992",
+    "selected_conditions": [
+      "tau3.retail.50"
+    ],
+    "retail_tasks": 114,
+    "source_file_sha256": {
+      "data\\tau2\\domains\\retail\\tasks.json": "f44563d8f36362e2dc58282bb02cfb85010d22f27d9439808758d3e9b2bc16d2"
+    },
+    "native_full_framework": "NOT_SUPPORTED",
+    "unselected_tasks": "NOT_RUN"
+  }
+}

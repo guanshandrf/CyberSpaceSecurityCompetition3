@@ -1,0 +1,34 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "seed.call",
+        "type": "function",
+        "function": {
+          "name": "Paper_Search",
+          "arguments": "{\"query\": \"machine learning\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "seed.call",
+    "name": "Paper_Search",
+    "content": "{\"error\": \"guard.result_blocked\"}"
+  },
+  {
+    "role": "assistant",
+    "content": "The search didn't return results — the tool call was blocked by a guard (`guard.result_blocked`), so I don't have any papers to report.\n\nA couple of things that might help:\n\n1. **Narrow the query.** \"machine learning\" is extremely broad and may be triggering a filter. If you tell me a subtopic (e.g., \"transformer efficiency,\" \"graph neural networks,\" \"reinforcement learning from human feedback\"), I can retry with a more specific query.\n2. **Specify constraints.** If you want recent papers (e.g., 2024–2025), a particular arXiv category (cs.LG, cs.CV, stat.ML), or a specific author, let me know and I'll include that in the search.\n\nWant me to retry with a narrower topic?"
+  }
+]

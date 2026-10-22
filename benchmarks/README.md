@@ -68,3 +68,26 @@ baseline/full 和单 Gate 消融样本很小，不能推导总体 ASR、显著�
 模型拒绝与 Guard 拦截分开记录；未判定的语义拒绝为 null，不冒充 0。
 完整 SDK 仍是规则 MVP，没有另造“语义完整版”。详见 reports/P8-acceptance.md。
 
+
+
+## P8 增强实验（2026-10-22）
+
+统一入口 `python -m agentguard_bench.experiment --config benchmarks/configs/matched-v1.json`。
+默认仅preflight；`--mode replay`为确定性重放；真实调用必须额外传`--mode real --enable-real-api`。
+完整固定协议/指标/分母/范围见 [EXPERIMENT-PROTOCOL.md](EXPERIMENT-PROTOCOL.md)。
+
+本轮真实子集114项试验、六组匹配、165次DeepSeek请求，未超过新授权180次/每次512输出token。
+17个样本条件不是17条完全独立官方任务：AgentDojo为3个用户任务的正常/攻击条件，InjecAgent为
+6条官方DH记录，MSB为1个原目标的4种明确适配，tau为1个官方动作组件。完整MSB/MCP与tau奖励
+未支持，不能当全量原生成绩。所有攻击基线同样未达目标，不能宣称Guard降低ASR。
+
+真实结果位于 `reports/p8-enhanced/20261021T233228Z-dfdf20b1`；重放与预检在其他run目录，mode明确
+分开。raw.jsonl/CSV、summary、配置/源码哈希、暴露分析、验证记录和5类PNG/PDF/SVG图均保留。
+重新汇总/生成图：`python -m agentguard_bench.paper_plots reports/p8-enhanced/20261021T233228Z-dfdf20b1`；
+校验：`python -m agentguard_bench.verify_experiment reports/p8-enhanced/20261021T233228Z-dfdf20b1`。
+绘图前将MPLCONFIGDIR设为仓库内.cache目录；独立环境实际依赖锁为requirements-enhanced.lock。
+
+本机独立账本 `.cache/p8-enhanced-live/budget.sqlite` 已用165/180，不要删除或重置。
+原P8的20次账本哈希未变。不自动使用剩余15次，也不自动提交/推送。
+本轮下载绘图库曾遗漏仓库内pip缓存参数，操作边界偏差已在验收报告披露，后续使用--no-cache-dir。
+最终结论与局限见 `reports/P8-enhanced-acceptance.md`，不能由工程测试通过推断研究有效性。

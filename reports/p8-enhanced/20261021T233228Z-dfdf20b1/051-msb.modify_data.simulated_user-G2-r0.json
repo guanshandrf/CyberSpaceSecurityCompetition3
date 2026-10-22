@@ -1,0 +1,34 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "seed.call",
+        "type": "function",
+        "function": {
+          "name": "Paper_Search",
+          "arguments": "{\"query\": \"machine learning\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "seed.call",
+    "name": "Paper_Search",
+    "content": "{\"error\": \"guard.result_blocked\"}"
+  },
+  {
+    "role": "assistant",
+    "content": "The search didn't go through — the tool returned a `guard.result_blocked` error, which typically means the query was too broad or got flagged by a safety filter.\n\nA few options to get this working:\n\n1. **Narrow the query** — \"machine learning\" is extremely broad. Something like \"transformer attention mechanisms\" or \"reinforcement learning sample efficiency\" is more likely to return results.\n2. **Specify a subfield** — e.g., \"graph neural networks\", \"diffusion models\", \"federated learning\".\n3. **Tell me your topic of interest** and I'll search for that instead.\n\nWant me to retry with a more specific query? If so, let me know which area of ML you care about, or I can pick three distinct subfields and search each one."
+  }
+]

@@ -11,7 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from agentguard_demo.providers import make_provider
-from agentguard_demo.service import ChatService
+from agentguard_demo.service import ChatService, SessionBusy
 from agentguard_demo.settings import DemoSettings
 
 
@@ -60,7 +60,11 @@ def create_app(settings: DemoSettings | None = None, *, provider=None):
     async def local_origin(request: Request, call_next):
         # No cross-site mutation on an unauthenticated local demo (including SSE POST).
         origin = request.headers.get("origin")
-        if request.method == "POST" and origin and origin != str(request.base_url).rstrip("/"):
+        if (
+            request.method in {"POST", "DELETE", "PATCH", "PUT"}
+            and origin
+            and origin != str(request.base_url).rstrip("/")
+        ):
             return JSONResponse(status_code=403, content={"detail": "Cross-origin request denied"})
         response = await call_next(request)
         response.headers["X-Content-Type-Options"] = "nosniff"
@@ -154,17 +158,24 @@ def create_app(settings: DemoSettings | None = None, *, provider=None):
         records = chat.audit.history.events(
             session_id, after=after, limit=limit, audit_only=request.url.path.endswith("/audit")
         )
+        session = chat.get_session(session_id)
         return {
             "events": records,
             "next_after": records[-1]["sequence"] if records else after,
-            "active": chat.get_session(session_id) is not None,
+            "active": session is not None,
             "mode": "protected",
-            "provider": (
-                chat.get_session(session_id).provider_name
-                if chat.get_session(session_id) is not None
-                else None
-            ),
+            "provider": session.provider_name if session is not None else None,
         }
+
+    @app.delete("/sessions/{session_id}", status_code=204)
+    def delete_session(session_id: str):
+        chat = history_service()
+        try:
+            removed = chat.delete_session(session_id)
+        except SessionBusy:
+            raise HTTPException(409, "Session is processing a turn") from None
+        if not removed:
+            raise HTTPException(404, "Unknown session")
 
     @app.get("/sessions/{session_id}")
     def get_session(session_id: str):

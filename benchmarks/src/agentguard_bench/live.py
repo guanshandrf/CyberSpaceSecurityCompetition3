@@ -110,14 +110,20 @@ def local_key(root):
 class DeepSeek:
     provider_id = "deepseek-chat-real"
 
-    def __init__(self, *, root, budget, enabled=False):
+    def __init__(self, *, root, budget, enabled=False, max_output_tokens=MAX_OUTPUT_TOKENS):
         if enabled is not True:
             raise LiveFailure("Real API requires explicit enablement")
+        if type(max_output_tokens) is not int or not 1 <= max_output_tokens <= 512:
+            raise LiveFailure("Output token limit must be 1..512")
+        if max_output_tokens > getattr(budget, "max_output_tokens", MAX_OUTPUT_TOKENS):
+            raise LiveFailure("Output token limit exceeds this authorization")
+        self.max_output_tokens = max_output_tokens
         self._key = local_key(root)
         self.redactor = Redactor(secrets=(self._key,))
         self._open = urllib.request.build_opener(NoRedirect()).open
         self.budget = budget
         self.last_usage = None
+        self.response_metadata = {}
 
     def redact(self, value):
         return self.redactor.redact(value)
@@ -127,7 +133,7 @@ class DeepSeek:
             "model": "deepseek-chat",
             "messages": messages,
             "temperature": 0,
-            "max_tokens": MAX_OUTPUT_TOKENS,
+            "max_tokens": self.max_output_tokens,
             "stream": False,
         }
         if tools:
@@ -160,6 +166,11 @@ class DeepSeek:
             if type(message) is not dict or message.get("role") != "assistant":
                 raise ValueError
             usage = result.get("usage", {})
+            self.response_metadata = {
+                "model": result.get("model"),
+                "system_fingerprint": result.get("system_fingerprint"),
+                "finish_reason": result["choices"][0].get("finish_reason"),
+            }
             self.last_usage = usage
             self.budget.finish(request_id, status="completed", usage=usage)
             return message

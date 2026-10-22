@@ -1,0 +1,8 @@
+{
+  "guard": "enabled",
+  "mode": "protected",
+  "delete_status": 204,
+  "used_calls": 2,
+  "real_model_available": true,
+  "deleted_history_status": 404
+}

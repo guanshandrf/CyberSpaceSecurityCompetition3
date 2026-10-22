@@ -70,6 +70,12 @@ class HistoryStore:
         with self.connection() as db:
             return db.execute("SELECT 1 FROM ui_sessions WHERE id=?", (sid,)).fetchone() is not None
 
+    def delete_session(self, sid):
+        # Only presentation history is removed; the independent SDK audit is retained.
+        with self.connection() as db, db:
+            db.execute("DELETE FROM ui_events WHERE session=?", (sid,))
+            return db.execute("DELETE FROM ui_sessions WHERE id=?", (sid,)).rowcount == 1
+
     def append(self, sid, kind, data):
         if not self.exists(sid):
             raise ValueError("Unknown public session")
@@ -197,6 +203,8 @@ def public_events(service, session, content):
     """Serialize UI requests separately; each persisted row is emitted once in order."""
     history = service.audit.history
     with session.presentation_lock:
+        if session.deleted:
+            return
         cursor = service.public_cursor(session.session_id)
         for raw in service.events(session, content):
             kind, data = raw["event"], raw["data"]

@@ -111,4 +111,80 @@ describe('P7 protected chat', () => {
     expect(wrapper.get('textarea').element.disabled).toBe(true)
     expect(wrapper.text()).not.toContain('private body')
   })
+  it('requires confirmation and clears the selected conversation after deleting the last one', async () => {
+    const backend = api({ remove: vi.fn(async () => {}), history: async () => ({ events: transcript, active: true }) })
+    const wrapper = await render(backend)
+    await wrapper.get('.delete-session').trigger('click')
+    expect(backend.remove).not.toHaveBeenCalled()
+    await wrapper.get('.delete-confirm button').trigger('click')
+    expect(wrapper.find('.delete-confirm').exists()).toBe(false)
+    await wrapper.get('.delete-session').trigger('click')
+    await wrapper.get('.confirm-delete').trigger('click'); await flushPromises()
+    expect(backend.remove).toHaveBeenCalledWith(sid)
+    expect(wrapper.findAll('.session-row')).toHaveLength(0)
+    expect(wrapper.findAll('.turn')).toHaveLength(0)
+    expect(wrapper.get('textarea').element.disabled).toBe(true)
+  })
+  it('retains the conversation and hides private details if deletion fails', async () => {
+    const wrapper = await render(api({ remove: async () => { throw new Error('private error') } }))
+    await wrapper.get('.delete-session').trigger('click')
+    await wrapper.get('.confirm-delete').trigger('click'); await flushPromises()
+    expect(wrapper.findAll('.session-row')).toHaveLength(1)
+    expect(wrapper.text()).toContain('删除失败')
+    expect(wrapper.text()).not.toContain('private error')
+  })
+  it('explains actual decisions, missing checks and Gate 2 side effect limits', async () => {
+    const records = [record('gate0', 'ALLOW', 'not_applicable', null, 1), ...transcript.map(e => ({ ...e, sequence: e.sequence + 1 }))]
+    const wrapper = await render(api({ history: async () => ({ events: records, active: true }) }))
+    expect(wrapper.text()).toContain('工具注册准入')
+    expect(wrapper.text()).toContain('并非本轮重新注册')
+    expect(wrapper.text()).toContain('调用前安全检查')
+    expect(wrapper.text()).toContain('本次调用的安全检查通过')
+    expect(wrapper.text()).toContain('工具返回安全策略')
+    expect(wrapper.text()).toContain('尚无结果审核记录，不能推定结果已经通过')
+  })
+  it('explains missing result checks for denied calls and distinguishes result blocking from execution', async () => {
+    const records = [data('tool_call', { name: 'read_file', tool_call_id: 'denied' }, 1),
+      record('gate1', 'BLOCK', 'not_executed', 'denied', 2),
+      data('tool_call', { name: 'read_file', tool_call_id: 'executed' }, 3),
+      record('gate1', 'ALLOW', 'executed', 'executed', 4),
+      record('gate2', 'BLOCK', 'not_applicable', 'executed', 5), data('done', { ok: true }, 6)]
+    const wrapper = await render(api({ history: async () => ({ events: records, active: true }) }))
+    expect(wrapper.text()).toContain('本次调用未执行，没有已执行工具的返回内容可审核')
+    expect(wrapper.text()).toContain('Gate 2 不能撤销副作用')
+    expect(wrapper.findAll('.tool-summary')[1].text()).toContain('已执行')
+  })
+  it('opens the next session after deleting the current one and preserves unrelated sessions', async () => {
+    const backend = api({ sessions: async () => ({ sessions: [{ session_id: sid }, { session_id: 'other' }] }), remove: vi.fn(async () => {}) })
+    const wrapper = await render(backend)
+    await wrapper.findAll('.delete-session')[0].trigger('click')
+    await wrapper.get('.confirm-delete').trigger('click'); await flushPromises()
+    expect(backend.history).toHaveBeenLastCalledWith('other')
+    expect(wrapper.findAll('.session-row')).toHaveLength(1)
+  })
+  it('does not describe an ordinary text reply as tool security approval', async () => {
+    const wrapper = await render(api({ history: async () => ({ events: [data('message', { content: 'hello' }, 1), data('done', { ok: true }, 2)], active: true }) }))
+    expect(wrapper.text()).toContain('未观察到工具调用')
+    expect(wrapper.text()).toContain('普通文本回答不代表经过工具安全检测')
+  })
+  it('adds an expandable evidence report for each tool call without another API request', async () => {
+    const backend = api({ history: async () => ({ events: transcript, active: true }) })
+    const wrapper = await render(backend)
+    expect(wrapper.findAll('.security-analysis')).toHaveLength(2)
+    expect(wrapper.findAll('.security-analysis')[0].attributes('open')).toBeUndefined()
+    // Native details openness controls visibility, while report computation stays local.
+    wrapper.findAll('.security-analysis')[0].element.open = true
+    await wrapper.findAll('.security-analysis')[0].trigger('toggle')
+    const report = wrapper.findAll('.security-analysis')[0]
+    expect(report.text()).toContain('调用已阻断，工具未执行')
+    expect(report.text()).toContain('可追溯证据')
+    expect(report.text()).toContain('checks.passed')
+    expect(report.text()).toContain('trace-one')
+    expect(report.text()).toContain('call-one')
+    expect(report.find('script').exists()).toBe(false)
+    expect(backend.stream).not.toHaveBeenCalled()
+    expect(backend.create).not.toHaveBeenCalled()
+    await wrapper.get('[role="switch"]').trigger('click')
+    expect(wrapper.find('.security-analysis').exists()).toBe(false)
+  })
 })

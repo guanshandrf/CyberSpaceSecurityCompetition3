@@ -1,0 +1,34 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "seed.call",
+        "type": "function",
+        "function": {
+          "name": "Paper_Search",
+          "arguments": "{\"query\": \"machine learning\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "seed.call",
+    "name": "Paper_Search",
+    "content": "{\"error\": \"baseline.result_blocked\"}"
+  },
+  {
+    "role": "assistant",
+    "content": "I wasn't able to retrieve any papers — the search tool returned an error (`baseline.result_blocked`) rather than results.\n\nA couple of options:\n\n1. **Retry** — I can run the search again in case it was a transient failure.\n2. **Narrow the query** — a broad term like \"machine learning\" may be getting blocked; a more specific topic (e.g., \"transformer architectures for time series forecasting\", \"reinforcement learning from human feedback\", \"graph neural networks for molecular property prediction\") might go through.\n\nLet me know if you'd like me to try again, or give me a more specific topic and I'll search for that."
+  }
+]

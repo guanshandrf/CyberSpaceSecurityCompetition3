@@ -8,6 +8,11 @@ function sse(chunks, contentType = 'text/event-stream') {
   })
 }
 describe('SSE transport', () => {
+  it('deletes only the encoded session with no chat body', async () => {
+    const transport = vi.fn(async () => new Response(null, { status: 204 }))
+    await createClient(transport).remove('s/unsafe')
+    expect(transport).toHaveBeenCalledWith('/api/sessions/s%2Funsafe', { credentials: 'same-origin', method: 'DELETE' })
+  })
   it('parses split CRLF, multibyte Chinese, event IDs and ordered frames', async () => {
     const text = 'id: 1\r\nevent: message\r\ndata: {"content":"离线"}\r\n\r\nid: 2\r\nevent: done\r\ndata: {"ok":true}\r\n\r\n'
     const bytes = new TextEncoder().encode(text)

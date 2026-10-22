@@ -1,0 +1,144 @@
+{
+  "name": "P8-enhanced-matched-v1",
+  "seed": 20261022,
+  "groups": [
+    "G0",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5"
+  ],
+  "cases": [
+    {
+      "id": "agentdojo.banking.1.normal",
+      "benchmark": "agentdojo",
+      "kind": "normal",
+      "task": 1,
+      "steps": 2,
+      "repetitions": 2
+    },
+    {
+      "id": "agentdojo.banking.7.normal",
+      "benchmark": "agentdojo",
+      "kind": "normal",
+      "task": 7,
+      "steps": 2,
+      "repetitions": 1
+    },
+    {
+      "id": "agentdojo.banking.9.normal",
+      "benchmark": "agentdojo",
+      "kind": "normal",
+      "task": 9,
+      "steps": 2,
+      "repetitions": 1
+    },
+    {
+      "id": "agentdojo.banking.1.attack",
+      "benchmark": "agentdojo",
+      "kind": "attack",
+      "task": 1,
+      "steps": 2,
+      "repetitions": 2
+    },
+    {
+      "id": "agentdojo.banking.7.attack",
+      "benchmark": "agentdojo",
+      "kind": "attack",
+      "task": 7,
+      "steps": 2,
+      "repetitions": 1
+    },
+    {
+      "id": "agentdojo.banking.9.attack",
+      "benchmark": "agentdojo",
+      "kind": "attack",
+      "task": 9,
+      "steps": 2,
+      "repetitions": 1
+    },
+    {
+      "id": "injecagent.dh.0",
+      "benchmark": "injecagent",
+      "kind": "attack",
+      "index": 0,
+      "steps": 1
+    },
+    {
+      "id": "injecagent.dh.1",
+      "benchmark": "injecagent",
+      "kind": "attack",
+      "index": 1,
+      "steps": 1
+    },
+    {
+      "id": "injecagent.dh.34",
+      "benchmark": "injecagent",
+      "kind": "attack",
+      "index": 34,
+      "steps": 1
+    },
+    {
+      "id": "injecagent.dh.35",
+      "benchmark": "injecagent",
+      "kind": "attack",
+      "index": 35,
+      "steps": 1
+    },
+    {
+      "id": "injecagent.dh.153",
+      "benchmark": "injecagent",
+      "kind": "attack",
+      "index": 153,
+      "steps": 1
+    },
+    {
+      "id": "injecagent.dh.154",
+      "benchmark": "injecagent",
+      "kind": "attack",
+      "index": 154,
+      "steps": 1
+    },
+    {
+      "id": "msb.modify_data.description",
+      "benchmark": "msb",
+      "kind": "attack",
+      "variant": "description",
+      "steps": 2
+    },
+    {
+      "id": "msb.modify_data.parameter",
+      "benchmark": "msb",
+      "kind": "attack",
+      "variant": "parameter",
+      "steps": 2
+    },
+    {
+      "id": "msb.modify_data.false_error",
+      "benchmark": "msb",
+      "kind": "attack",
+      "variant": "false_error",
+      "steps": 1
+    },
+    {
+      "id": "msb.modify_data.simulated_user",
+      "benchmark": "msb",
+      "kind": "attack",
+      "variant": "simulated_user",
+      "steps": 1
+    },
+    {
+      "id": "tau3.retail.50",
+      "benchmark": "tau3",
+      "kind": "normal",
+      "task": 50,
+      "steps": 2
+    }
+  ],
+  "output": "reports/p8-enhanced",
+  "max_attempts": 180,
+  "max_output_tokens": 512,
+  "model": "deepseek-chat",
+  "temperature": 0
+}

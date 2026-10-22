@@ -30,7 +30,7 @@ it('real Vue UI -> ASGI API -> guarded LangGraph -> SQLite -> SSE -> UI, includi
     const reply = new Promise((resolve, reject) => pending.set(id, { resolve, reject }))
     processBridge.stdin.write(JSON.stringify({ id, path: path.replace(/^\/api/, ''), method: options.method || 'GET', body: options.body }) + '\n')
     const result = await reply
-    return new Response(result.body, { status: result.status, headers: result.headers })
+    return new Response(result.status === 204 ? null : result.body, { status: result.status, headers: result.headers })
   }
   let wrapper
   try {
@@ -53,6 +53,7 @@ it('real Vue UI -> ASGI API -> guarded LangGraph -> SQLite -> SSE -> UI, includi
     expect(wrapper.text()).toContain('Gate 0')
     expect(wrapper.text()).toContain('Gate 1')
     expect(wrapper.text()).toContain('Gate 2')
+    expect(wrapper.find('.security-analysis').text()).toContain('工具已执行，返回内容审核通过')
     await wrapper.get('[role="switch"]').trigger('click')
     await send('write_note {"name":"../escape.txt","content":"x"}')
     expect(wrapper.find('.audit-card').exists()).toBe(false)
@@ -77,8 +78,16 @@ it('real Vue UI -> ASGI API -> guarded LangGraph -> SQLite -> SSE -> UI, includi
     wrapper = mount(App, { props: { api }, attachTo: document.body })
     await settle(() => wrapper.findAll('.turn').length === beforeRefresh)
     expect(wrapper.findAll('.audit-card')).toHaveLength(5)
+    expect(wrapper.findAll('.security-analysis')).toHaveLength(6)
+    expect(wrapper.text()).toContain('返回内容指令注入')
+    expect(wrapper.text()).toContain('不能撤销此前工具的副作用')
     expect(wrapper.text()).toContain('未执行')
     expect(wrapper.text()).toContain('guard.result_blocked')
+    await wrapper.get('.delete-session').trigger('click')
+    await wrapper.get('.confirm-delete').trigger('click')
+    await settle(() => wrapper.findAll('.session-row').length === 0)
+    expect(wrapper.findAll('.turn')).toHaveLength(0)
+    expect((await api.sessions()).sessions).toHaveLength(0)
   } finally {
     wrapper?.unmount(); processBridge.stdin.end(); lines.close(); processBridge.kill()
   }

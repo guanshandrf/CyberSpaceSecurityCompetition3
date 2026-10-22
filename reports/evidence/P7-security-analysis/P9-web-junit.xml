@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="43" failures="0" errors="0" time="2.5405178">
+    <testsuite name="src/App.test.js" timestamp="2026-10-22T00:26:32.753Z" hostname="LAPTOP-F5HJTE31" tests="2" failures="0" errors="0" skipped="0" time="0.1226141">
+        <testcase classname="src/App.test.js" name="P0 shell &gt; mounts Vue and Element Plus and identifies its unimplemented status" time="0.1204425">
+        </testcase>
+        <testcase classname="src/App.test.js" name="P0 shell &gt; blocks network requests in the offline test environment" time="0.0006005">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/Chat.test.js" timestamp="2026-10-22T00:26:32.757Z" hostname="LAPTOP-F5HJTE31" tests="16" failures="0" errors="0" skipped="0" time="0.2470605">
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; loads sessions and restores both independent tool audit cards" time="0.0642537">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; hides audit details without changing the request or protected execution feedback" time="0.034042">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; renders hostile user, model and tool labels as text without HTML execution" time="0.0147708">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; never enables chat on a baseline backend" time="0.0068876">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; keeps archived sessions read-only" time="0.0132598">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; labels unapproved REVIEW as not executed instead of successful execution" time="0.0095659">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; reports stream interruption without automatic retry or a claim that tools did not execute" time="0.0104948">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; creates a new backend session and reloads its persisted state" time="0.0074297">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; shows session history failures without enabling writes to an unknown state" time="0.0066527">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; requires confirmation and clears the selected conversation after deleting the last one" time="0.0241673">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; retains the conversation and hides private details if deletion fails" time="0.0077673">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; explains actual decisions, missing checks and Gate 2 side effect limits" time="0.0105662">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; explains missing result checks for denied calls and distinguishes result blocking from execution" time="0.009369">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; opens the next session after deleting the current one and preserves unrelated sessions" time="0.00775">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; does not describe an ordinary text reply as tool security approval" time="0.005956">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; adds an expandable evidence report for each tool call without another API request" time="0.0125622">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/client.test.js" timestamp="2026-10-22T00:26:32.759Z" hostname="LAPTOP-F5HJTE31" tests="8" failures="0" errors="0" skipped="0" time="0.0135284">
+        <testcase classname="src/client.test.js" name="SSE transport &gt; deletes only the encoded session with no chat body" time="0.0027929">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; parses split CRLF, multibyte Chinese, event IDs and ordered frames" time="0.0046228">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects an interrupted stream without automatically posting again" time="0.0016546">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects malformed JSON or missing completion: not json" time="0.0004718">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects malformed JSON or missing completion: {}" time="0.0003304">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects non-SSE responses" time="0.0002783">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; reads all history pages without duplicating the cursor" time="0.0017907">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; does not reflect error response bodies into UI errors" time="0.0003912">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/ModelSelection.test.js" timestamp="2026-10-22T00:26:32.760Z" hostname="LAPTOP-F5HJTE31" tests="5" failures="0" errors="0" skipped="0" time="0.110758">
+        <testcase classname="src/ModelSelection.test.js" name="explains Fake echo in an existing session, not just on the welcome screen" time="0.0451939">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="chooses a new DeepSeek session only after explicit fee confirmation" time="0.030387">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="disables unavailable real model and never asks for a browser-side API key" time="0.0125466">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="shows a completed empty answer instead of a blank assistant bubble" time="0.01294">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="explains exhausted global budget without suggesting a reset by model switching" time="0.0085114">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/P7.e2e.test.js" timestamp="2026-10-22T00:26:32.760Z" hostname="LAPTOP-F5HJTE31" tests="1" failures="0" errors="0" skipped="0" time="2.0412317">
+        <testcase classname="src/P7.e2e.test.js" name="real Vue UI -&gt; ASGI API -&gt; guarded LangGraph -&gt; SQLite -&gt; SSE -&gt; UI, including refresh" time="2.0400832">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/securityAnalysis.test.js" timestamp="2026-10-22T00:26:32.760Z" hostname="LAPTOP-F5HJTE31" tests="11" failures="0" errors="0" skipped="0" time="0.0053251">
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; keeps a denied call unexecuted even when its safe error passes Gate 2" time="0.0019143">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; never describes Gate 2 blocking as undoing execution" time="0.000268">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; explains sanitization without consuming original sensitive fields" time="0.0002675">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; does not turn an ALLOW or missing risk score into proof of safety" time="0.0001899">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; does not infer execution from admission, turn completion or a result alone" time="0.0002709">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; preserves execution evidence when a replay or later approval is denied" time="0.0001852">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; distinguishes pending approval from permission to run" time="0.0001947">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; excludes inherited registration and invalid timing without summing overlapping stages" time="0.0001878">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; warns about interruptions and undisclosed policy evidence" time="0.000221">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; does not claim plain text underwent tool checks" time="0.0002245">
+        </testcase>
+        <testcase classname="src/securityAnalysis.test.js" name="evidence-based security analysis &gt; reports execution errors as such even if the error response passes result review" time="0.0001118">
+        </testcase>
+    </testsuite>
+</testsuites>

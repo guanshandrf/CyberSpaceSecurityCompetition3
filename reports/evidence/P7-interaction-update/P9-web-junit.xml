@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="31" failures="0" errors="0" time="2.3113937">
+    <testsuite name="src/App.test.js" timestamp="2026-10-22T00:10:12.785Z" hostname="LAPTOP-F5HJTE31" tests="2" failures="0" errors="0" skipped="0" time="0.10059">
+        <testcase classname="src/App.test.js" name="P0 shell &gt; mounts Vue and Element Plus and identifies its unimplemented status" time="0.0985709">
+        </testcase>
+        <testcase classname="src/App.test.js" name="P0 shell &gt; blocks network requests in the offline test environment" time="0.000624">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/Chat.test.js" timestamp="2026-10-22T00:10:12.788Z" hostname="LAPTOP-F5HJTE31" tests="15" failures="0" errors="0" skipped="0" time="0.1916395">
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; loads sessions and restores both independent tool audit cards" time="0.0480813">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; hides audit details without changing the request or protected execution feedback" time="0.0264424">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; renders hostile user, model and tool labels as text without HTML execution" time="0.0122312">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; never enables chat on a baseline backend" time="0.0060585">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; keeps archived sessions read-only" time="0.0128429">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; labels unapproved REVIEW as not executed instead of successful execution" time="0.0080809">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; reports stream interruption without automatic retry or a claim that tools did not execute" time="0.0082176">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; creates a new backend session and reloads its persisted state" time="0.0081467">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; shows session history failures without enabling writes to an unknown state" time="0.0065122">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; requires confirmation and clears the selected conversation after deleting the last one" time="0.017239">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; retains the conversation and hides private details if deletion fails" time="0.0061499">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; explains actual decisions, missing checks and Gate 2 side effect limits" time="0.0087615">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; explains missing result checks for denied calls and distinguishes result blocking from execution" time="0.0103729">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; opens the next session after deleting the current one and preserves unrelated sessions" time="0.0070123">
+        </testcase>
+        <testcase classname="src/Chat.test.js" name="P7 protected chat &gt; does not describe an ordinary text reply as tool security approval" time="0.0042358">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/client.test.js" timestamp="2026-10-22T00:10:12.791Z" hostname="LAPTOP-F5HJTE31" tests="8" failures="0" errors="0" skipped="0" time="0.0134853">
+        <testcase classname="src/client.test.js" name="SSE transport &gt; deletes only the encoded session with no chat body" time="0.0027998">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; parses split CRLF, multibyte Chinese, event IDs and ordered frames" time="0.0054923">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects an interrupted stream without automatically posting again" time="0.0014516">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects malformed JSON or missing completion: not json" time="0.0003647">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects malformed JSON or missing completion: {}" time="0.0002591">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; rejects non-SSE responses" time="0.0002158">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; reads all history pages without duplicating the cursor" time="0.0013995">
+        </testcase>
+        <testcase classname="src/client.test.js" name="SSE transport &gt; does not reflect error response bodies into UI errors" time="0.0003486">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/ModelSelection.test.js" timestamp="2026-10-22T00:10:12.792Z" hostname="LAPTOP-F5HJTE31" tests="5" failures="0" errors="0" skipped="0" time="0.0940139">
+        <testcase classname="src/ModelSelection.test.js" name="explains Fake echo in an existing session, not just on the welcome screen" time="0.0384977">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="chooses a new DeepSeek session only after explicit fee confirmation" time="0.0287995">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="disables unavailable real model and never asks for a browser-side API key" time="0.0109136">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="shows a completed empty answer instead of a blank assistant bubble" time="0.0078732">
+        </testcase>
+        <testcase classname="src/ModelSelection.test.js" name="explains exhausted global budget without suggesting a reset by model switching" time="0.0066891">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/P7.e2e.test.js" timestamp="2026-10-22T00:10:12.792Z" hostname="LAPTOP-F5HJTE31" tests="1" failures="0" errors="0" skipped="0" time="1.911665">
+        <testcase classname="src/P7.e2e.test.js" name="real Vue UI -&gt; ASGI API -&gt; guarded LangGraph -&gt; SQLite -&gt; SSE -&gt; UI, including refresh" time="1.9105366">
+        </testcase>
+    </testsuite>
+</testsuites>

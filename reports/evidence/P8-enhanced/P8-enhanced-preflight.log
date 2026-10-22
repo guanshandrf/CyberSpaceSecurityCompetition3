@@ -1,0 +1,4 @@
+2026-10-22 07:27:01.833 | WARNING  | tau2.utils.utils:<module>:15 - No .env file found
+2026-10-22 07:27:01.833 | INFO     | tau2.utils.utils:<module>:23 - Using data directory from environment: D:\Projects\Work\competition3\.cache\p8-checkouts\tau3\data
+warning: in the working copy of 'benchmarks/src/agentguard_bench/live.py', LF will be replaced by CRLF the next time Git touches it
+{"output": "reports\\p8-enhanced\\20261021T232701Z-87779ccc", "supported": 14, "cases": 17}

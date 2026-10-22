@@ -1,0 +1,14 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": "I don't have a search tool available in this environment—only a file-editing tool. So I can't actually query arXiv or retrieve real papers for you.\n\nA few options:\n\n1. **If you have a file** (e.g., a list of arXiv IDs, a bibliography, or notes) you'd like me to work with, tell me the path and I can edit/format it.\n2. **I can suggest well-known ML papers** from memory (e.g., \"Attention Is All You Need,\" ResNet, Adam optimizer), but I can't verify current arXiv links or metadata, and you should confirm details yourself.\n3. **You could paste search results** here and I'll help organize, summarize, or format them.\n\nWhich would you like? If you can enable a web/search tool, I'm happy to run the actual arXiv query."
+  }
+]

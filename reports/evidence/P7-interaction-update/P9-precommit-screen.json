@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "files_examined": 226,
+  "configured_credentials_present_in_files": false,
+  "problems": [],
+  "exact_synthetic_fixture_occurrences": 6,
+  "credential_values_printed": false,
+  "scope": "Nonignored repository files; exact fixture body exception only, not a comprehensive secret detector"
+}

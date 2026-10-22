@@ -1,0 +1,13 @@
+
+> agentguard-web@0.0.0 build
+> vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 1611 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.27 kB
+dist/assets/index-Bt-Ra5ah.css   49.72 kB │ gzip:  8.48 kB
+dist/assets/index-CUvdI1JL.js   167.78 kB │ gzip: 64.15 kB
+✓ built in 3.25s

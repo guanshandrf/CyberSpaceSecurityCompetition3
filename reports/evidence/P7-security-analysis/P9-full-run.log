@@ -1,0 +1,7 @@
+dependencies: PASS
+lint: PASS
+format: PASS
+python-tests: PASS
+web-tests: PASS
+web-build: PASS
+PASS: D:\Projects\Work\competition3\reports\generated\P9-results.json

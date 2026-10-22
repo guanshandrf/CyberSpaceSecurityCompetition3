@@ -1,0 +1,34 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "replay.1",
+        "type": "function",
+        "function": {
+          "name": "edit_file",
+          "arguments": "{\"path\": \"/sandbox/output/probe.txt\", \"old_text\": \"123456789\", \"new_text\": \"0123456789\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "replay.1",
+    "name": "edit_file",
+    "content": "{\"simulated\": true}"
+  },
+  {
+    "role": "assistant",
+    "content": "Deterministic replay finished."
+  }
+]

@@ -14,6 +14,29 @@ h1 span { display: block; font-size: 10px; font-weight: 400; letter-spacing: 2px
 .new-session.el-button { margin: 32px 4px 27px; padding: 20px; border-color: #dce3fb; background: #edf1ff; color: #4567e8; border-radius: 11px; }
 .nav-label { font-size: 11px; color: #99a1b1; padding: 0 12px; letter-spacing: 1px; }
 nav { overflow-y: auto; flex: 1; }
+.session-row { display: flex; align-items: center; border-radius: 9px; margin: 4px 0; }
+.session-row.selected { color: #3657cb; background: #e9edfa; }
+.session-row .session-item { flex: 1; min-width: 0; margin: 0; }
+.delete-session { border: none; background: transparent; color: #9b6470; font-size: 11px; padding: 10px 6px; flex-shrink: 0; }
+.delete-session:hover { color: #bb394c; background: #ffedf0; border-radius: 5px; }
+.delete-confirm { margin: 12px 24px; padding: 18px; border: 1px solid #e9bfc5; background: #fff7f8; border-radius: 12px; font-size: 13px; line-height: 1.7; }
+.delete-confirm h2 { font-size: 16px; }.delete-confirm button { border: 1px solid #d4dae6; border-radius: 6px; background: white; padding: 7px 14px; margin-right: 10px; }.delete-confirm .confirm-delete { background: #b74859; color: white; border-color: #b74859; }
+.reason-list { padding-left: 18px; }.reason-list li { margin: 5px 0; }.gate-row code { overflow-wrap: anywhere; font-size: 10px; color: #677b9f; }.gate-effect { background: #f0f4fc; padding: 8px 10px; border-radius: 6px; }.audit-note { color: #8c97aa; line-height: 1.7; }
+.no-tool-audit { margin-top: 12px; border: 1px solid #e5eaf6; border-radius: 10px; background: #fcfdff; }.no-tool-audit summary { padding: 13px 15px; font-size: 11px; color: #6d83b4; }
+.security-analysis { margin: 14px 0 3px; border: 1px solid #cfdcf4; border-radius: 9px; background: white; }
+.security-analysis > summary { flex-wrap: wrap; padding: 12px; color: #365b9c; background: #eff4ff; border-radius: 9px; font-weight: 600; }
+.security-analysis > summary small { margin-left: auto; font-size: 10px; font-weight: 400; color: #64799f; }
+.analysis-content { padding: 4px 14px 14px; line-height: 1.8; color: #61708a; overflow-wrap: anywhere; }
+.analysis-content h4 { margin: 18px 0 9px; font-size: 12px; color: #36527e; }
+.analysis-method, .analysis-boundary { font-size: 10px; color: #8996ab; }.analysis-boundary { border-top: 1px solid #e6edf7; padding-top: 10px; }
+.analysis-identifiers { font-family: monospace; color: #8a98b0; font-size: 9px; overflow-wrap: anywhere; }
+.analysis-verdict { padding: 12px; border-left: 3px solid #6e8dca; background: #f3f6fc; border-radius: 4px; }.analysis-verdict > span { display: block; font-size: 10px; color: #8a98b1; }.analysis-verdict > strong { color: #36527e; font-size: 13px; }.analysis-verdict p { margin-bottom: 0; }
+.security-analysis[data-tone=blocked] .analysis-verdict { border-left-color: #c7785b; background: #fff6f0; }.security-analysis[data-tone=review] .analysis-verdict, .security-analysis[data-tone=attention] .analysis-verdict { border-left-color: #bd9744; background: #fffbef; }
+.analysis-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }.analysis-facts > div { background: #f8faff; border-radius: 6px; padding: 8px; }.analysis-facts dt { color: #8b99b0; font-size: 10px; }.analysis-facts dd { margin: 3px 0 0; color: #465f86; }
+.analysis-issue { border: 1px solid #e9edf5; padding: 9px 11px; margin: 8px 0; border-radius: 6px; }.analysis-issue small { color: #7f90ad; }.analysis-issue p { margin: 4px 0; }
+.analysis-coverage { display: grid; gap: 6px; }.analysis-coverage > div { padding: 8px 10px; background: #f8faff; border-radius: 5px; }.analysis-coverage span { margin-left: 12px; }.analysis-coverage p { margin: 2px 0; font-size: 10px; }
+.analysis-evidence { list-style: none; padding: 0; }.analysis-evidence li { border-bottom: 1px solid #edf1f7; padding: 8px 0; }.analysis-evidence p { margin: 3px 0; }.analysis-evidence code { font-size: 10px; }.analysis-content ul { padding-left: 18px; }.analysis-gaps { background: #fff9ef; padding: 8px 8px 8px 26px !important; border-radius: 6px; }
+@media (max-width: 600px) { .analysis-facts { grid-template-columns: 1fr; }.security-analysis > summary small { margin-left: 0; }.analysis-content { padding: 4px 10px 12px; } }
 .session-item { display: block; width: 100%; text-align: left; border: none; border-radius: 9px; padding: 13px 12px; margin: 4px 0; background: transparent; color: #536078; font-size: 13px; }
 .session-item.selected { color: #3657cb; background: #e9edfa; }
 .session-item small { display: block; font-size: 10px; margin-top: 5px; color: #909aae; }

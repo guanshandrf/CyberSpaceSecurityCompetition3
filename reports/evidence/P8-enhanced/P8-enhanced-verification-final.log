@@ -1,0 +1,30 @@
+2026-10-22 07:52:42.468 | WARNING  | tau2.utils.utils:<module>:15 - No .env file found
+2026-10-22 07:52:42.468 | INFO     | tau2.utils.utils:<module>:23 - Using data directory from environment: D:\Projects\Work\competition3\.cache\p8-checkouts\tau3\data
+{
+  "conclusion": "PASS",
+  "raw_sha256": "6706fba6d45fa4a89d593fae36aa0d0ed4c3d18ee778338ad6d8fbc718c574b9",
+  "records": 114,
+  "statuses": {
+    "COMPLETED": 114
+  },
+  "api_attempts": 165,
+  "matched_inputs_and_groups": true,
+  "raw_summary_chart_consistent": true,
+  "source_snapshot_matches": true,
+  "verification_code_sha256": "4ebf6eb045da760900aed4fd397b4bb0df89e855d49cd961a7b684b3ad0e9289",
+  "post_run_plot_layout_changes": {
+    "benchmarks\\src\\agentguard_bench\\paper_plots.py": {
+      "run_sha256": "a3f91e663ac82e16dcce80ca5d9694dea7aab2de2e04c0713f12b937aa6261a8",
+      "analysis_sha256": "20f681936ddb10efe4f3e7ce13011f21a475013fd97959422c5777de7f88acd1"
+    }
+  },
+  "guard1_simulated_attacker_executions": 0,
+  "usage": {
+    "prompt_tokens": 95723,
+    "completion_tokens": 21777,
+    "total_tokens": 117500
+  },
+  "missing_usage_attempts": 0,
+  "model_refusal_judged_trials": 0,
+  "warning": "Artifact checks only; no claim of efficacy or full native scores"
+}

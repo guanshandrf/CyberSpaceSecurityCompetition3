@@ -1,0 +1,21 @@
+{
+  "commit": "250bca5e379dc929a5c42520342ee11790bac544",
+  "working_tree_clean": true,
+  "github_push": "FAILED_NETWORK",
+  "attempts": 3,
+  "last_error": "GitHub port 443 could not connect; previous two attempts connection reset",
+  "previous_remote_tracking_commit": "63fe95c72450c27f67d694e35ffad2ffc6de857d",
+  "local_artifacts": [
+    {
+      "path": "reports\\generated\\AgentGuard-P9-250bca5.zip",
+      "bytes": 468624,
+      "sha256": "3352695dd9972a6f786556447fe4f184458d29e7594477bade811765f46bfb4c"
+    },
+    {
+      "path": "reports\\generated\\AgentGuard-P9-250bca5.bundle",
+      "bytes": 411259,
+      "sha256": "abfb00e7c93513778b840f06909289c42c34e098bd3d61093e66acf8796ccde6"
+    }
+  ],
+  "zip_integrity": "PASS"
+}

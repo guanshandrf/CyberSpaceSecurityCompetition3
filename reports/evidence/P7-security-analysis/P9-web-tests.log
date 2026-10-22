@@ -1,0 +1,21 @@
+
+> agentguard-web@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.12 D:/Projects/Work/competition3/apps/web
+
+ ✓ src/securityAnalysis.test.js (11 tests) 5ms
+ ✓ src/client.test.js (8 tests) 14ms
+ ✓ src/App.test.js (2 tests) 123ms
+ ✓ src/ModelSelection.test.js (5 tests) 111ms
+ ✓ src/Chat.test.js (16 tests) 247ms
+ ✓ src/P7.e2e.test.js (1 test) 2041ms
+   ✓ real Vue UI -> ASGI API -> guarded LangGraph -> SQLite -> SSE -> UI, including refresh  2040ms
+
+ Test Files  6 passed (6)
+      Tests  43 passed (43)
+   Start at  08:26:28
+   Duration  3.87s (transform 312ms, setup 106ms, import 4.33s, tests 2.54s, environment 3.06s)
+
+JUNIT report written to D:/Projects/Work/competition3/reports/generated/P9-web-junit.xml

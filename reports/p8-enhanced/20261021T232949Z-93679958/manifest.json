@@ -1,0 +1,522 @@
+{
+  "run_id": "20261021T232949Z-93679958",
+  "created_at": "2026-10-21T23:29:49.603211+00:00",
+  "mode": "replay",
+  "git_commit": "3f5d174786f687765469ea5da0808ef975595ce7",
+  "git_dirty": true,
+  "diff_sha256": "6dae07881da6514c9da22286fd3fbd048c1d76789e29f1ce12639851301ab213",
+  "config": {
+    "name": "P8-enhanced-matched-v1",
+    "seed": 20261022,
+    "groups": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5"
+    ],
+    "cases": [
+      {
+        "id": "agentdojo.banking.1.normal",
+        "benchmark": "agentdojo",
+        "kind": "normal",
+        "task": 1,
+        "steps": 2,
+        "repetitions": 2
+      },
+      {
+        "id": "agentdojo.banking.7.normal",
+        "benchmark": "agentdojo",
+        "kind": "normal",
+        "task": 7,
+        "steps": 2,
+        "repetitions": 1
+      },
+      {
+        "id": "agentdojo.banking.9.normal",
+        "benchmark": "agentdojo",
+        "kind": "normal",
+        "task": 9,
+        "steps": 2,
+        "repetitions": 1
+      },
+      {
+        "id": "agentdojo.banking.1.attack",
+        "benchmark": "agentdojo",
+        "kind": "attack",
+        "task": 1,
+        "steps": 2,
+        "repetitions": 2
+      },
+      {
+        "id": "agentdojo.banking.7.attack",
+        "benchmark": "agentdojo",
+        "kind": "attack",
+        "task": 7,
+        "steps": 2,
+        "repetitions": 1
+      },
+      {
+        "id": "agentdojo.banking.9.attack",
+        "benchmark": "agentdojo",
+        "kind": "attack",
+        "task": 9,
+        "steps": 2,
+        "repetitions": 1
+      },
+      {
+        "id": "injecagent.dh.0",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 0,
+        "steps": 1
+      },
+      {
+        "id": "injecagent.dh.1",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 1,
+        "steps": 1
+      },
+      {
+        "id": "injecagent.dh.34",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 34,
+        "steps": 1
+      },
+      {
+        "id": "injecagent.dh.35",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 35,
+        "steps": 1
+      },
+      {
+        "id": "injecagent.dh.153",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 153,
+        "steps": 1
+      },
+      {
+        "id": "injecagent.dh.154",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 154,
+        "steps": 1
+      },
+      {
+        "id": "msb.modify_data.description",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "description",
+        "steps": 2
+      },
+      {
+        "id": "msb.modify_data.parameter",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "parameter",
+        "steps": 2
+      },
+      {
+        "id": "msb.modify_data.false_error",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "false_error",
+        "steps": 1
+      },
+      {
+        "id": "msb.modify_data.simulated_user",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "simulated_user",
+        "steps": 1
+      },
+      {
+        "id": "tau3.retail.50",
+        "benchmark": "tau3",
+        "kind": "normal",
+        "task": 50,
+        "steps": 2
+      }
+    ],
+    "output": "reports/p8-enhanced",
+    "max_attempts": 180,
+    "max_output_tokens": 512,
+    "temperature": 0,
+    "model": "deepseek-chat"
+  },
+  "config_sha256": "ed6c8f7efb883d43af8a35c7fa52138341ab34b99e4a8f49f11c72e670681bc3",
+  "source_pins": {
+    "agentdojo": [
+      "ethz-spylab/agentdojo",
+      "089ed468cf3ed0322acc66b0211f26d9d90dbf60"
+    ],
+    "injecagent": [
+      "uiuc-kang-lab/InjecAgent",
+      "f19c9f2c79a41046eb13c03c51a24c567a8ffa07"
+    ],
+    "msb": [
+      "dongsenzhang/MSB",
+      "c1d6a70171e4d2c44c87a2ae909d13df00c6aa8d"
+    ],
+    "tau3": [
+      "sierra-research/tau2-bench",
+      "fc0055dc4e0a316c3f83133267fbd6faaa770992"
+    ]
+  },
+  "cases": [
+    {
+      "spec": {
+        "id": "agentdojo.banking.1.normal",
+        "benchmark": "agentdojo",
+        "kind": "normal",
+        "task": 1,
+        "steps": 2,
+        "repetitions": 2
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "28d34018d9fd5d377b293910d9e708e495935f073d0f9fc4dce7d7991ee334fa",
+      "attack_sha256": null,
+      "limitations": [
+        "banking v1 official task/runtime/judge subset; two-tool inventory",
+        "fixed payload: official MSB template + AgentDojo goal; not official attack corpus"
+      ]
+    },
+    {
+      "spec": {
+        "id": "agentdojo.banking.7.normal",
+        "benchmark": "agentdojo",
+        "kind": "normal",
+        "task": 7,
+        "steps": 2,
+        "repetitions": 1
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "12a0bd56abdbeb6aaf54d5c079ea6ee07672a3eac7e811a8d596ec54a1a9c3d1",
+      "attack_sha256": null,
+      "limitations": [
+        "banking v1 official task/runtime/judge subset; two-tool inventory",
+        "fixed payload: official MSB template + AgentDojo goal; not official attack corpus"
+      ]
+    },
+    {
+      "spec": {
+        "id": "agentdojo.banking.9.normal",
+        "benchmark": "agentdojo",
+        "kind": "normal",
+        "task": 9,
+        "steps": 2,
+        "repetitions": 1
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "e85c5bb85745fd50df6712cb4fe7d9c6bf87f9abc5d7d2d5d1adfe4ab326855e",
+      "attack_sha256": null,
+      "limitations": [
+        "banking v1 official task/runtime/judge subset; two-tool inventory",
+        "fixed payload: official MSB template + AgentDojo goal; not official attack corpus"
+      ]
+    },
+    {
+      "spec": {
+        "id": "agentdojo.banking.1.attack",
+        "benchmark": "agentdojo",
+        "kind": "attack",
+        "task": 1,
+        "steps": 2,
+        "repetitions": 2
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "28d34018d9fd5d377b293910d9e708e495935f073d0f9fc4dce7d7991ee334fa",
+      "attack_sha256": "5f39769ebab87a64c8600f52d864453fb400d222218ba6f6da067cf1787772b6",
+      "limitations": [
+        "banking v1 official task/runtime/judge subset; two-tool inventory",
+        "fixed payload: official MSB template + AgentDojo goal; not official attack corpus"
+      ]
+    },
+    {
+      "spec": {
+        "id": "agentdojo.banking.7.attack",
+        "benchmark": "agentdojo",
+        "kind": "attack",
+        "task": 7,
+        "steps": 2,
+        "repetitions": 1
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "12a0bd56abdbeb6aaf54d5c079ea6ee07672a3eac7e811a8d596ec54a1a9c3d1",
+      "attack_sha256": "5f39769ebab87a64c8600f52d864453fb400d222218ba6f6da067cf1787772b6",
+      "limitations": [
+        "banking v1 official task/runtime/judge subset; two-tool inventory",
+        "fixed payload: official MSB template + AgentDojo goal; not official attack corpus"
+      ]
+    },
+    {
+      "spec": {
+        "id": "agentdojo.banking.9.attack",
+        "benchmark": "agentdojo",
+        "kind": "attack",
+        "task": 9,
+        "steps": 2,
+        "repetitions": 1
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "e85c5bb85745fd50df6712cb4fe7d9c6bf87f9abc5d7d2d5d1adfe4ab326855e",
+      "attack_sha256": "5f39769ebab87a64c8600f52d864453fb400d222218ba6f6da067cf1787772b6",
+      "limitations": [
+        "banking v1 official task/runtime/judge subset; two-tool inventory",
+        "fixed payload: official MSB template + AgentDojo goal; not official attack corpus"
+      ]
+    },
+    {
+      "spec": {
+        "id": "injecagent.dh.0",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 0,
+        "steps": 1,
+        "attack_type": "Physical Harm"
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "1f343616d74846ffd01d7fb6c39c5b78bf1522a18c04ac8c680f9b3d52343f82",
+      "attack_sha256": "6af7192178a80455eef1f2332b9d8f2a84dea77e0feedf6489bad442310f04cd",
+      "limitations": [
+        "official DH first-step protocol / tool-selection judge; simulated tools",
+        "full physical/financial/data harm NOT_SUPPORTED; selection/execution is not task ASR",
+        "open objects closed consistently in all groups for SDK compatibility"
+      ]
+    },
+    {
+      "spec": {
+        "id": "injecagent.dh.1",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 1,
+        "steps": 1,
+        "attack_type": "Physical Harm"
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "2fe6cbe217c7ccfc11cf5a201c0ca4f273e133855c1b4d35c7d9312ef63cc787",
+      "attack_sha256": "bc26f52824bdaf51c6891b88e153ffdd6138139a8355e5934db67de62fa9a403",
+      "limitations": [
+        "official DH first-step protocol / tool-selection judge; simulated tools",
+        "full physical/financial/data harm NOT_SUPPORTED; selection/execution is not task ASR",
+        "open objects closed consistently in all groups for SDK compatibility"
+      ]
+    },
+    {
+      "spec": {
+        "id": "injecagent.dh.34",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 34,
+        "steps": 1,
+        "attack_type": "Financial Harm"
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "75f1f6faa8bf51b01b04169476caa4d51630c53e90ceb71ef5b76706aa5c324b",
+      "attack_sha256": "b6c0965d1fa2c43c24b2a09375d07f2ebd600aebd6f99fc764cae5916f573dcd",
+      "limitations": [
+        "official DH first-step protocol / tool-selection judge; simulated tools",
+        "full physical/financial/data harm NOT_SUPPORTED; selection/execution is not task ASR",
+        "open objects closed consistently in all groups for SDK compatibility"
+      ]
+    },
+    {
+      "spec": {
+        "id": "injecagent.dh.35",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 35,
+        "steps": 1,
+        "attack_type": "Financial Harm"
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "d4df39ee30d126f1c9130bcdabd95b7399282f47aa215935df1a238e6f31e163",
+      "attack_sha256": "fdcf8ffaba4671597ef362f1a6ffd5baecbc89c512547c05829f9467c585fb9e",
+      "limitations": [
+        "official DH first-step protocol / tool-selection judge; simulated tools",
+        "full physical/financial/data harm NOT_SUPPORTED; selection/execution is not task ASR",
+        "open objects closed consistently in all groups for SDK compatibility"
+      ]
+    },
+    {
+      "spec": {
+        "id": "injecagent.dh.153",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 153,
+        "steps": 1,
+        "attack_type": "Data Security Harm"
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "16f3dfeb3bc8532057b8b2f64254b830d4f5e138a17985cbe15353c1edf0b1ad",
+      "attack_sha256": "6842c27f5c3910f0d6370e12af9b41a4221864954ef4729f77f117c80f991175",
+      "limitations": [
+        "official DH first-step protocol / tool-selection judge; simulated tools",
+        "full physical/financial/data harm NOT_SUPPORTED; selection/execution is not task ASR",
+        "open objects closed consistently in all groups for SDK compatibility"
+      ]
+    },
+    {
+      "spec": {
+        "id": "injecagent.dh.154",
+        "benchmark": "injecagent",
+        "kind": "attack",
+        "index": 154,
+        "steps": 1,
+        "attack_type": "Data Security Harm"
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "606d4b01a43b2d8c55a7dde301b778aa4ae472c99edd64de4318351b1a196ded",
+      "attack_sha256": "275671430f5e65613478f8422ac864420ae8efb8ff295cc184299ee10635169d",
+      "limitations": [
+        "official DH first-step protocol / tool-selection judge; simulated tools",
+        "full physical/financial/data harm NOT_SUPPORTED; selection/execution is not task ASR",
+        "open objects closed consistently in all groups for SDK compatibility"
+      ]
+    },
+    {
+      "spec": {
+        "id": "msb.modify_data.description",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "description",
+        "steps": 2
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "bbe6c82acd5e77693714514925d275e00352fea7e4d3e673e52244d3f40b4846",
+      "attack_sha256": "e0c24c83525e8f67227cb986dad9821b17fa198fd820339ead3bfc92c8eeb089",
+      "limitations": [
+        "official MSB template/modify_data goal; local two-tool simulation, no native MCP",
+        "description/parameter placements adapted; schema poisoning is not native MSB parameter attack",
+        "virtual-state predicate, not original MSB metrics.check_result score"
+      ]
+    },
+    {
+      "spec": {
+        "id": "msb.modify_data.parameter",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "parameter",
+        "steps": 2
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "019ef8ce29075e60ebb8ba9850db0e0cc50cd005c06e53cec88902055989e6b3",
+      "attack_sha256": "e0c24c83525e8f67227cb986dad9821b17fa198fd820339ead3bfc92c8eeb089",
+      "limitations": [
+        "official MSB template/modify_data goal; local two-tool simulation, no native MCP",
+        "description/parameter placements adapted; schema poisoning is not native MSB parameter attack",
+        "virtual-state predicate, not original MSB metrics.check_result score"
+      ]
+    },
+    {
+      "spec": {
+        "id": "msb.modify_data.false_error",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "false_error",
+        "steps": 1
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "7c8cf6a75958560a6bac40b8a9b6ba2c94cb92b6ef38c700079e647056dee515",
+      "attack_sha256": "6b3d9fe523133add2575ce92d22f6a2da619b4b5a14fce44606edbb4fe125461",
+      "limitations": [
+        "official MSB template/modify_data goal; local two-tool simulation, no native MCP",
+        "description/parameter placements adapted; schema poisoning is not native MSB parameter attack",
+        "virtual-state predicate, not original MSB metrics.check_result score"
+      ]
+    },
+    {
+      "spec": {
+        "id": "msb.modify_data.simulated_user",
+        "benchmark": "msb",
+        "kind": "attack",
+        "variant": "simulated_user",
+        "steps": 1
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "4256133ff0f44b2c0f2bdf4c427af876a0a0a562a02902d6914d49e94725772b",
+      "attack_sha256": "02f7af8a5a01d1ce6ccb9bf8da0c47462f81d3d2573c242452e163a4bb3aaef5",
+      "limitations": [
+        "official MSB template/modify_data goal; local two-tool simulation, no native MCP",
+        "description/parameter placements adapted; schema poisoning is not native MSB parameter attack",
+        "virtual-state predicate, not original MSB metrics.check_result score"
+      ]
+    },
+    {
+      "spec": {
+        "id": "tau3.retail.50",
+        "benchmark": "tau3",
+        "kind": "normal",
+        "task": 50,
+        "steps": 2
+      },
+      "status": "SUPPORTED_SUBSET",
+      "input_sha256": "199bfeff36d5034e1f2dbb5468e58d05702c21da274c516a22b91af3cdc86b28",
+      "attack_sha256": null,
+      "limitations": [
+        "official retail task/tool/action evaluator; no DB/NL/user simulator reward",
+        "Action reward is not normal task success and is excluded from TSR/FPR denominators"
+      ]
+    }
+  ],
+  "group_configurations": {
+    "G0": {
+      "gate0": false,
+      "gate1": false,
+      "gate2": false,
+      "basic_rules": false
+    },
+    "G1": {
+      "gate0": false,
+      "gate1": false,
+      "gate2": false,
+      "basic_rules": true
+    },
+    "G2": {
+      "gate0": true,
+      "gate1": true,
+      "gate2": true,
+      "basic_rules": false
+    },
+    "G3": {
+      "gate0": false,
+      "gate1": true,
+      "gate2": true,
+      "basic_rules": false
+    },
+    "G4": {
+      "gate0": true,
+      "gate1": false,
+      "gate2": true,
+      "basic_rules": false
+    },
+    "G5": {
+      "gate0": true,
+      "gate1": true,
+      "gate2": false,
+      "basic_rules": false
+    }
+  },
+  "model_seed": null,
+  "seed_scope": "schedule and bootstrap only; provider seed unsupported",
+  "authorization": null,
+  "experiment_sources_sha256": {
+    "benchmarks\\src\\agentguard_bench\\components.py": "e046f53c515d5b716bb373748a39ef4b33e73e3d6b13556c404f95c91fa0cad8",
+    "benchmarks\\src\\agentguard_bench\\experiment.py": "8377af9d71c23a29444230d456b36ccbeb3d4512130d7713a0488ed1e0aab2e3",
+    "benchmarks\\src\\agentguard_bench\\experiment_budget.py": "468e2652b245dbc19bf478d155099aef89535503cba4672d8fd625ce5ba33a5f",
+    "benchmarks\\src\\agentguard_bench\\experiment_cases.py": "c6853e19f7ff0b154223d409946d256bbeda24e326868cf592e61cbba0e1df95",
+    "benchmarks\\src\\agentguard_bench\\experiment_guard.py": "891cba03d8b173d11dfe463c3a73b8ec20697d7a81ade55c9ecc4c7a20bbad6d",
+    "benchmarks\\src\\agentguard_bench\\guard.py": "65c4f5f6b039f9dfd7365e73afe5b12de159c7e07c8cf9d2593a734f76a54ae2",
+    "benchmarks\\src\\agentguard_bench\\live.py": "9ac6ce9038448e5390dc755523ca5afcad58a5b56251d9f57f26b1cb3589c616",
+    "benchmarks\\src\\agentguard_bench\\paper_plots.py": "a1f3803d4eae3db8402473e63a87cb9698d75ecc5c28a32e35e45f2ea29e81a5",
+    "benchmarks\\src\\agentguard_bench\\records.py": "f8102c9dc83e1e3b5c57dbee752c364d0bdb6db4e3a43fe128819b16d58994de",
+    "benchmarks\\src\\agentguard_bench\\statistics.py": "df5a391cf12931882c005b3c929e6b12c9bec9c1ecbba35969494f25de423daf",
+    "benchmarks\\src\\agentguard_bench\\upstream.py": "2d1f95a8674ebfe8495f5255904be2ba5813f83521c19f8fb4ac47c548c6fb26",
+    "benchmarks\\src\\agentguard_bench\\__init__.py": "d6f014e5134248dabd58f95c195725ca957f388751dbee2c10943efc664a523b"
+  }
+}

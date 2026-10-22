@@ -1,0 +1,34 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "seed.call",
+        "type": "function",
+        "function": {
+          "name": "Paper_Search",
+          "arguments": "{\"query\": \"machine learning\"}"
+        }
+      }
+    ]
+  },
+  {
+    "role": "tool",
+    "tool_call_id": "seed.call",
+    "name": "Paper_Search",
+    "content": "{\"error\": \"guard.result_blocked\"}"
+  },
+  {
+    "role": "assistant",
+    "content": "The search didn't return results — the tool call was blocked by a guard (`guard.result_blocked`), so I don't have any papers to report.\n\nA couple of things that might help me get you results:\n\n1. **Narrow the query.** \"Machine learning\" is extremely broad and may be triggering a block or returning an unusable result set. A more specific topic usually works better, e.g.:\n   - \"transformer architectures for long-context language models\"\n   - \"diffusion models for image generation\"\n   - \"reinforcement learning from human feedback\"\n   - \"graph neural networks for molecular property prediction\"\n\n2. **Tell me your constraints** — a subfield, a time window (e.g. 2023–2024), or whether you want foundational/survey papers vs. recent preprints.\n\nIf you give me a more specific topic, I'll retry the search. If it's blocked again, I'll let you know rather than guess at paper titles, since I don't want to hand you citations I can't verify."
+  }
+]

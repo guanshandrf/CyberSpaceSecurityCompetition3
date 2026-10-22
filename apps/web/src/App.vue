@@ -3,6 +3,8 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { ElButton, ElSwitch, ElTag } from 'element-plus'
 import { createClient } from './client.js'
 import './style.css'
+import { effectHelp, gateHelp, policyHelp, reasonHelp, stageHelp } from './auditDetails.js'
+import SecurityAnalysis from './SecurityAnalysis.vue'
 
 const props = defineProps({ api: { type: Object, default: () => createClient() } })
 const sessions = ref([]), selected = ref(''), events = ref([]), draft = ref('')
@@ -10,6 +12,7 @@ const showAudit = ref(true), busy = ref(false), loading = ref(true), error = ref
 const active = ref(false), conversation = ref(null)
 const modelCatalog = ref(null), currentProvider = ref(''), nextProvider = ref('fake')
 const modelPanel = ref(false), realConfirmed = ref(false)
+const deleteTarget = ref(null), deleting = ref(false)
 const modelName = id => ({ fake: '离线 Fake', deepseek: 'DeepSeek · 真实 API' }[id] || '模型待确认')
 const deepseekAvailable = computed(() => modelCatalog.value?.models?.some(m => m.id === 'deepseek' && m.available))
 const modelSelectable = computed(() => modelCatalog.value?.selectable === true)
@@ -37,7 +40,7 @@ const turns = computed(() => {
   }
   return [...grouped.values()]
 })
-const canSend = computed(() => enabled.value && active.value && !busy.value && !loading.value && draft.value.trim())
+const canSend = computed(() => enabled.value && active.value && !busy.value && !loading.value && !deleting.value && !deleteTarget.value && draft.value.trim())
 function callState(call, turn) {
   if (call.audits.some(a => a.execution === 'executed')) return '已执行'
   if (call.audits.some(a => a.execution === 'not_executed')) return '未执行'
@@ -58,7 +61,7 @@ const errorText = code => ({
 }[code] || '本轮未完成，请查看审计确认工具状态。')
 async function refreshSessions() { sessions.value = (await props.api.sessions()).sessions }
 async function openSession(id) {
-  if (busy.value) return
+  if (busy.value || deleting.value) return
   const version = ++loadVersion
   selected.value = id; active.value = false; loading.value = true; error.value = ''; events.value = []
   try {
@@ -74,7 +77,7 @@ async function openSession(id) {
   finally { if (version === loadVersion) loading.value = false }
 }
 async function newSession() {
-  if (busy.value || !enabled.value) return
+  if (busy.value || deleting.value || !enabled.value) return
   const provider = modelSelectable.value ? nextProvider.value : undefined
   if (provider === 'deepseek' && !realConfirmed.value) { modelPanel.value = true; return }
   error.value = ''
@@ -84,6 +87,23 @@ async function newSession() {
     currentProvider.value = created.provider || currentProvider.value
     modelPanel.value = false
   } catch { error.value = '创建会话失败，请检查本地服务。' }
+}
+async function confirmDelete() {
+  if (!deleteTarget.value || busy.value || deleting.value) return
+  const id = deleteTarget.value.session_id
+  deleting.value = true; error.value = ''
+  try {
+    await props.api.remove(id)
+    sessions.value = sessions.value.filter(s => s.session_id !== id)
+    deleteTarget.value = null
+    if (selected.value === id) {
+      ++loadVersion
+      selected.value = ''; events.value = []; active.value = false; draft.value = ''; loading.value = false
+      deleting.value = false
+      if (sessions.value.length) await openSession(sessions.value[0].session_id)
+    }
+  } catch { error.value = '删除失败，会话可能仍在处理中；请稍后重试。' }
+  finally { deleting.value = false }
 }
 function receive(e) {
   if (e.data.session_id !== selected.value) throw new Error('Session mismatch')
@@ -122,14 +142,22 @@ onMounted(async () => {
       <ElButton class="new-session" :disabled="!enabled || busy || loading" @click="newSession">＋ 新建对话</ElButton>
       <p class="nav-label">最近会话</p>
       <nav aria-label="会话列表">
-        <button v-for="s in sessions" :key="s.session_id" class="session-item" :class="{ selected: selected === s.session_id }"
-                :disabled="busy" @click="openSession(s.session_id)">
-          <span>对话 {{ s.session_id.slice(0, 8) }}</span><small>{{ s.active ? '本地会话' : '历史 · 只读' }}</small>
-        </button>
+        <div v-for="s in sessions" :key="s.session_id" class="session-row" :class="{ selected: selected === s.session_id }">
+          <button class="session-item" :disabled="busy || deleting || !!deleteTarget" @click="openSession(s.session_id)">
+            <span>对话 {{ s.session_id.slice(0, 8) }}</span><small>{{ s.active ? '本地会话' : '历史 · 只读' }}</small>
+          </button>
+          <button class="delete-session" :aria-label="`删除对话 ${s.session_id.slice(0, 8)}`" title="删除对话" :disabled="busy || loading || deleting || !!deleteTarget" @click="deleteTarget = s">删除</button>
+        </div>
       </nav>
       <div class="sidebar-foot"><span class="status-dot"></span> 本地实验环境<p>仅保护已接管的工具调用</p></div>
     </aside>
     <main class="workspace">
+      <section v-if="deleteTarget" class="delete-confirm" role="alertdialog" aria-labelledby="delete-heading">
+        <h2 id="delete-heading">删除对话 {{ deleteTarget.session_id.slice(0, 8) }}？</h2>
+        <p>将删除该对话和聊天展示历史，无法从页面恢复。独立安全审计记录和已创建的工具文件仍会保留。</p>
+        <button :disabled="deleting" @click="deleteTarget = null">取消</button>
+        <button class="confirm-delete" :disabled="deleting" @click="confirmDelete">{{ deleting ? '正在删除…' : '确认删除' }}</button>
+      </section>
       <header class="topbar">
         <div><strong>{{ selected ? `对话 ${selected.slice(0, 8)}` : '新的一次安全探索' }}</strong><span class="header-sub">AgentGuard · 受保护对话</span></div>
         <div class="header-controls"><ElTag :type="enabled ? 'success' : 'info'">{{ enabled ? '防护已启用' : '服务未就绪' }}</ElTag>
@@ -176,15 +204,24 @@ onMounted(async () => {
               <details v-for="call in turn.calls.values()" :key="call.id" class="audit-card">
                 <summary><span class="shield">◇</span><strong>{{ call.name }}</strong><span>{{ callState(call, turn) }}</span><span class="expand-label">查看审计 ＋</span></summary>
                 <div class="audit-body"><p class="trace-line">trace {{ turn.trace }}<br>call {{ call.id }}</p>
+                  <p class="audit-note">以下为后端脱敏审计。检查范围说明不代表每个子检查均有独立测量；不会展示原始参数、敏感内容或密钥。</p>
                   <div v-for="(gate, index) in gates(call)" :key="index" class="gate-row" :data-action="gate.action">
-                    <div><strong>{{ gate.gate.replace('gate', 'Gate ') }}</strong><ElTag size="small" :type="gate.action === 'BLOCK' ? 'danger' : gate.action === 'REVIEW' ? 'warning' : 'success'">{{ actionText(gate.action) }}</ElTag></div>
-                    <p>{{ gate.inherited ? '当前工具注册审查（生命周期记录）' : gate.stage }} · 风险 {{ riskText(gate.risk) }} · {{ gate.duration_ms }} ms</p>
-                    <p>原因：{{ gate.reason_codes.join(' · ') }}<br>策略：{{ gate.matched_policies.join(' · ') || '内置硬性校验' }}</p>
+                    <div><strong>{{ gate.gate.replace('gate', 'Gate ') }} · {{ gateHelp[gate.gate]?.[0] }}</strong><ElTag size="small" :type="gate.action === 'BLOCK' ? 'danger' : gate.action === 'REVIEW' ? 'warning' : 'success'">{{ actionText(gate.action) }}</ElTag></div>
+                    <p>{{ gateHelp[gate.gate]?.[1] }}</p>
+                    <p>{{ gate.inherited ? '当前工具注册审查（生命周期记录，并非本轮重新注册）' : stageHelp(gate.stage) }} · 风险 {{ riskText(gate.risk) }} · {{ gate.gate === 'gate0' && gate.duration_ms === 0 ? '耗时未独立测量' : `${gate.duration_ms} ms` }}</p>
+                    <p v-if="gate.timestamp">记录时间：{{ gate.timestamp }}</p>
+                    <ul class="reason-list"><li v-for="reason in gate.reason_codes" :key="reason">{{ reasonHelp(reason) }} <code>{{ reason }}</code></li></ul>
+                    <p>策略：<span v-for="policy in gate.matched_policies" :key="policy">{{ policyHelp(policy) }} <code>{{ policy }}</code> </span><span v-if="!gate.matched_policies.length">内置硬性校验（无额外策略命中记录）</span></p>
+                    <p class="gate-effect">处理结果：{{ effectHelp(gate) }}</p>
                   </div>
+                  <p v-if="!gates(call).some(g => g.gate === 'gate0')">Gate 0：没有可关联的注册记录，不推定注册已经通过。</p>
+                  <p v-if="!call.audits.some(g => g.gate === 'gate2')">Gate 2：{{ callState(call, turn) === '未执行' ? '本次调用未执行，没有已执行工具的返回内容可审核。' : '尚无结果审核记录，不能推定结果已经通过。' }}</p>
                   <p v-if="!call.audits.length">等待安全审计记录…</p>
+                  <SecurityAnalysis :records="gates(call)" :trace="turn.trace" :call-id="call.id" :name="call.name" :done="turn.done" :interrupted="!!turn.error || (!busy && !turn.done)" />
                 </div>
               </details>
             </section>
+            <details v-if="showAudit && !turn.calls.size" class="no-tool-audit"><summary>本轮安全审核 · 未观察到工具调用</summary><div class="audit-body"><p>本轮没有可关联的工具调用记录，未触发逐调用 Gate 1 / Gate 2 审核。普通文本回答不代表经过工具安全检测。</p><p>Gate 0 属于工具注册生命周期，记录可在下方查看。</p><p class="trace-line">trace {{ turn.trace }}</p><SecurityAnalysis :records="[]" :trace="turn.trace" call-id="" name="未观察到工具调用" :done="turn.done" :interrupted="!!turn.error || (!busy && !turn.done)" no-tool /></div></details>
             <p v-if="turn.error" class="turn-error" role="alert">{{ errorText(turn.error) }}（{{ turn.error }}）</p>
           </div></div>
         </article>

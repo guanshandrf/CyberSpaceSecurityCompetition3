@@ -1,0 +1,5 @@
+# Preserve byte hashes recorded by the reproducible P8 experiments and evidence.
+reports/p8-enhanced/** -text
+reports/evidence/** -text
+benchmarks/src/agentguard_bench/*.py -text
+benchmarks/configs/*.json -text

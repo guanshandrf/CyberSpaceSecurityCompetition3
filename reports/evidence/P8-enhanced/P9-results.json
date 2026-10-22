@@ -1,0 +1,112 @@
+{
+  "phase": "P9",
+  "timestamp_utc": "2026-10-21T23:53:39.280543+00:00",
+  "python": "3.13.9",
+  "platform": "win32",
+  "steps": [
+    {
+      "name": "dependencies",
+      "command": [
+        "D:\\Projects\\Work\\competition3\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "cwd": "D:\\Projects\\Work\\competition3",
+      "returncode": 0,
+      "duration_seconds": 0.429,
+      "log": "reports\\generated\\P9-dependencies.log"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "D:\\Projects\\Work\\competition3\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "D:\\Projects\\Work\\competition3",
+      "returncode": 0,
+      "duration_seconds": 0.086,
+      "log": "reports\\generated\\P9-lint.log"
+    },
+    {
+      "name": "format",
+      "command": [
+        "D:\\Projects\\Work\\competition3\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "D:\\Projects\\Work\\competition3",
+      "returncode": 0,
+      "duration_seconds": 0.085,
+      "log": "reports\\generated\\P9-format.log"
+    },
+    {
+      "name": "python-tests",
+      "command": [
+        "D:\\Projects\\Work\\competition3\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-m",
+        "p0 or p1 or p2 or p3 or p4 or p5 or p6 or p7 or p8 or p9",
+        "--basetemp=.cache/pytest-P9",
+        "--junitxml=D:\\Projects\\Work\\competition3\\reports\\generated\\P9-python-junit.xml"
+      ],
+      "cwd": "D:\\Projects\\Work\\competition3",
+      "returncode": 0,
+      "duration_seconds": 32.626,
+      "log": "reports\\generated\\P9-python-tests.log"
+    },
+    {
+      "name": "web-tests",
+      "command": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test"
+      ],
+      "cwd": "D:\\Projects\\Work\\competition3\\apps\\web",
+      "returncode": 0,
+      "duration_seconds": 4.642,
+      "log": "reports\\generated\\P9-web-tests.log"
+    },
+    {
+      "name": "web-build",
+      "command": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "build"
+      ],
+      "cwd": "D:\\Projects\\Work\\competition3\\apps\\web",
+      "returncode": 0,
+      "duration_seconds": 3.835,
+      "log": "reports\\generated\\P9-web-build.log"
+    }
+  ],
+  "tests": {
+    "python": {
+      "passed": 776,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "total": 776
+    },
+    "web": {
+      "passed": 24,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "total": 24
+    }
+  },
+  "report_errors": [],
+  "external_runs": {
+    "deepseek": "NOT_RUN",
+    "benchmarks": "NOT_RUN"
+  },
+  "conclusion": "PASS"
+}

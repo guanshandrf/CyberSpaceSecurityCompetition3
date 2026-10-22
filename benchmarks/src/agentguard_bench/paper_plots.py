@@ -1,0 +1,183 @@
+"""Publication exports derived exclusively from experiment JSONL, never typed scores."""
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+
+from agentguard_bench.statistics import export, percentile
+
+COLORS = ["#777777", "#E69F00", "#0072B2", "#009E73", "#CC79A7", "#D55E00"]
+GROUPS = ["G0", "G1", "G2", "G3", "G4", "G5"]
+
+
+def plot(directory):
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    raw = directory / "raw.jsonl"
+    rows = [json.loads(line) for line in raw.read_text(encoding="utf-8").splitlines()]
+    modes = {r["mode"] for r in rows}
+    if len(modes) != 1:
+        raise ValueError("Never mix real model experiments and replay in a figure")
+    seed = json.loads((directory / "manifest.json").read_text(encoding="utf-8"))["config"]["seed"]
+    stats = export(directory, rows, seed=seed)
+    summary = stats["summary"]
+    data = {
+        "source_raw_sha256": hashlib.sha256(raw.read_bytes()).hexdigest(),
+        "mode": next(iter(modes)),
+        "summary": summary,
+        "rows": len(rows),
+    }
+    destination = directory / "figures"
+    destination.mkdir(exist_ok=True)
+    (destination / "chart-data.json").write_text(
+        json.dumps(data, indent=2) + "\n", encoding="utf-8"
+    )
+    plt.rcParams.update(
+        {
+            "font.family": "DejaVu Sans",
+            "font.size": 9,
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "pdf.fonttype": 42,
+            "svg.fonttype": "none",
+        }
+    )
+    scope = (
+        "Real DeepSeek; adapted official subsets"
+        if modes == {"real"}
+        else "DETERMINISTIC REPLAY - NOT REAL MODEL RESULTS"
+    )
+
+    def finish(fig, name):
+        fig.suptitle(scope, fontsize=10)
+        fig.text(
+            0.5,
+            0.005,
+            "Small n; no superiority claim. Wilson CIs assume independence; repeats correlate.",
+            ha="center",
+            fontsize=7,
+        )
+        fig.tight_layout(rect=(0, 0.04, 1, 0.94))
+        for extension in ("png", "pdf", "svg"):
+            fig.savefig(destination / f"{name}.{extension}", dpi=220)
+        plt.close(fig)
+
+    def metric_bars(ax, benchmark, metric, groups=GROUPS):
+        values = {r["group"]: r for r in summary if r["benchmark"] == benchmark}
+        for i, group in enumerate(groups):
+            m = values.get(group, {}).get(metric, {})
+            value = m.get("value")
+            if value is None:
+                ax.text(i, 0.05, "N/A\nn=0", ha="center", fontsize=8)
+                continue
+            ax.bar(i, value, color=COLORS[GROUPS.index(group)], width=0.65)
+            ax.errorbar(
+                i,
+                value,
+                yerr=[[max(0, value - m["wilson95_low"])], [max(0, m["wilson95_high"] - value)]],
+                color="#333333",
+                capsize=3,
+                fmt="none",
+            )
+            ax.text(
+                i,
+                min(1.12, m["wilson95_high"] + 0.03),
+                f"{m['numerator']}/{m['denominator']}\nsmall n",
+                ha="center",
+                fontsize=7,
+            )
+        ax.set_xticks(range(len(groups)), groups)
+        ax.set_ylim(0, 1.26)
+        ax.set_yticks([0, 0.25, 0.5, 0.75, 1], ["0%", "25%", "50%", "75%", "100%"])
+        ax.set_title(benchmark)
+        ax.grid(axis="y", alpha=0.15)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.7))
+    for ax, bench in zip(axes, ("agentdojo", "msb"), strict=True):
+        metric_bars(ax, bench, "asr")
+        ax.set_ylabel("Actual goal ASR (virtual state)")
+    finish(fig, "01-asr-groups")
+
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.7))
+    for ax, bench in zip(axes, ("agentdojo", "msb"), strict=True):
+        metric_bars(ax, bench, "asr", ["G2", "G3", "G4", "G5"])
+        ax.set_xlabel("G2 full / G3 -Gate0 / G4 -Gate1 / G5 -Gate2")
+        ax.set_ylabel("ASR; matched inputs")
+    finish(fig, "02-gate-ablation")
+
+    fig, ax = plt.subplots(figsize=(8, 4.4))
+    for row in summary:
+        if row["benchmark"] != "agentdojo":
+            continue
+        x, y = row["asr"]["value"], row["normal_task_success"]["value"]
+        if x is not None and y is not None:
+            index = GROUPS.index(row["group"])
+            ax.scatter(
+                x,
+                y,
+                color=COLORS[index],
+                s=45,
+                label=f"{row['group']} (nA={row['asr']['denominator']}, "
+                f"nN={row['normal_task_success']['denominator']})",
+            )
+    ax.set(
+        xlim=(-0.05, 1.05),
+        ylim=(-0.05, 1.05),
+        xlabel="Attack success rate",
+        ylabel="Normal task success rate",
+        title="AgentDojo; small n, overlapping points",
+    )
+    ax.grid(alpha=0.2)
+    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), fontsize=8)
+    finish(fig, "03-security-utility")
+
+    fig, ax = plt.subplots(figsize=(7, 3.7))
+    metric_bars(ax, "agentdojo", "false_positive_rate")
+    ax.set_ylabel("Normal-task intervention / FPR")
+    finish(fig, "04-false-positive-rate")
+
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.7))
+    for i, group in enumerate(GROUPS):
+        subset = [r for r in rows if r["group"] == group and r["status"] == "COMPLETED"]
+        delays = [r["latency_ms"] / 1000 for r in subset]
+        overhead = [v for r in subset for v in r.get("check_latencies_ms", [])]
+        for ax, samples in zip(axes, (delays, overhead), strict=True):
+            if samples:
+                ax.bar(i, percentile(samples, 0.5), color=COLORS[i])
+                ax.plot(i, percentile(samples, 0.95), "_", color="black", markersize=14)
+                ax.text(
+                    i,
+                    percentile(samples, 0.95),
+                    f"n={len(samples)}",
+                    ha="center",
+                    va="bottom",
+                    fontsize=7,
+                )
+    for ax in axes:
+        ax.set_xticks(range(6), GROUPS)
+        ax.grid(axis="y", alpha=0.2)
+    axes[0].set_ylabel("Task latency (seconds)")
+    axes[1].set_ylabel("Guard-path overhead excl. handler (ms)")
+    axes[0].set_title("Bar=P50; black mark=P95")
+    axes[1].set_title("Includes preload result checks; no API time")
+    finish(fig, "05-latency-overhead")
+    return data
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("directory")
+    args = parser.parse_args()
+    from agentguard_bench.experiment import safe_path
+
+    path = safe_path(Path.cwd(), args.directory)
+    data = plot(path)
+    print(json.dumps({"figures": 5, "rows": data["rows"], "mode": data["mode"]}))
+
+
+if __name__ == "__main__":
+    main()

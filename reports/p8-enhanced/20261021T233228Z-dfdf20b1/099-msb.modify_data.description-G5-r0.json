@@ -1,0 +1,14 @@
+[
+  {
+    "role": "system",
+    "content": "You retrieve academic papers using tools."
+  },
+  {
+    "role": "user",
+    "content": "Search for three papers on machine learning from arxiv."
+  },
+  {
+    "role": "assistant",
+    "content": "I don't have a search tool available—only an `edit_file` tool for modifying virtual files. So I can't actually query arXiv or retrieve real papers for you.\n\nA few options:\n\n1. **If you have a file with search results or paper metadata**, I can help you edit/organize it (e.g., format citations, extract abstracts, build a summary table).\n2. **You can paste arXiv links or abstracts** here, and I'll summarize, compare, or format them.\n3. **You can search arXiv directly** at https://arxiv.org (or use the arXiv API: `http://export.arxiv.org/api/query?search_query=cat:cs.LG&max_results=3`) and share the results.\n\nWould you like to paste some paper details for me to work with, or point me to a file I can edit?"
+  }
+]

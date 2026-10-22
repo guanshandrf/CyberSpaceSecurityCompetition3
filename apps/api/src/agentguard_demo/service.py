@@ -21,6 +21,10 @@ class CallLimit(RuntimeError):
     pass
 
 
+class SessionBusy(RuntimeError):
+    pass
+
+
 @dataclass
 class Session:
     session_id: str
@@ -31,6 +35,7 @@ class Session:
     lock: object = field(default_factory=Lock)
     guard: object = field(default=None, repr=False)
     presentation_lock: object = field(default_factory=Lock, repr=False)
+    deleted: bool = False
 
 
 class ChatService:
@@ -78,6 +83,23 @@ class ChatService:
     def get_session(self, session_id):
         with self.lock:
             return self.sessions.get(session_id)
+
+    def delete_session(self, session_id):
+        session = self.get_session(session_id)
+        if session is not None and not session.presentation_lock.acquire(blocking=False):
+            raise SessionBusy
+        try:
+            removed = self.audit.history.delete_session(session_id)
+            if removed and session is not None:
+                session.deleted = True
+                with self.lock:
+                    self.sessions.pop(session_id, None)
+                session.messages.clear()
+                session.guard = None
+            return removed
+        finally:
+            if session is not None:
+                session.presentation_lock.release()
 
     def _graph(self, session, tools, *, protector=None, trace_id=None):
         bound = self.providers[session.provider_name].bind_tools(tools)
@@ -162,6 +184,8 @@ class ChatService:
     def events(self, session: Session, content: str):
         # A plain Lock may be released on another worker when a sync stream resumes.
         with session.lock:
+            if session.deleted:
+                return
             session.turns += 1
             trace_id = uuid4().hex
             common = {"session_id": session.session_id, "trace_id": trace_id, "turn": session.turns}
